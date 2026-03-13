@@ -1,4 +1,4 @@
-USE CSC540;
+USE proj2;
 
 
 /* =========================================================
@@ -11,14 +11,15 @@ USE CSC540;
 -------------------------------------------------- */
 
 /* Before insert */
-SELECT * FROM EditionIssue WHERE ID = 'EDI006';
+SELECT * FROM EditionIssue WHERE id = '00000000-0000-0000-0000-000000000406';
 
 /* Insert new book edition */
-INSERT INTO EditionIssue (ID, EditionNum, PubDate, Status, ISBN, PublicationID)
-VALUES ('EDI006', 2, '2024-04-01', 'published', '9781111111111', 'PUB001');
+/* In application code, check if the corresponding publication is a book in case of non-null isbn or edition_num values*/
+INSERT INTO EditionIssue (id, edition_num, pub_date, status, isbn, price, publication_id)
+VALUES ('00000000-0000-0000-0000-000000000406', 2, '2024-04-01', 'IN_PROGRESS', '9781111111111', 47.50, '00000000-0000-0000-0000-000000000101');
 
 /* After insert */
-SELECT * FROM EditionIssue WHERE ID = 'EDI006';
+SELECT * FROM EditionIssue WHERE id = '00000000-0000-0000-0000-000000000406';
 
 
 
@@ -27,14 +28,15 @@ SELECT * FROM EditionIssue WHERE ID = 'EDI006';
 -------------------------------------------------- */
 
 /* Before insert */
-SELECT * FROM EditionIssue WHERE ID = 'EDI007';
+SELECT * FROM EditionIssue WHERE id = '00000000-0000-0000-0000-000000000407';
 
 /* Insert issue */
-INSERT INTO EditionIssue (ID, EditionNum, PubDate, Status, ISBN, PublicationID)
-VALUES ('EDI007', NULL, '2024-04-05', 'published', NULL, 'PUB002');
+/* In application code, check if the corresponding publication is a journal or magazine in case of null isbn or edition_num values*/
+INSERT INTO EditionIssue (id, edition_num, pub_date, status, isbn, price, publication_id)
+VALUES ('00000000-0000-0000-0000-000000000407', NULL, '2024-04-05', 'IN_PROGRESS', NULL, 12.50, '00000000-0000-0000-0000-000000000102');
 
 /* After insert */
-SELECT * FROM EditionIssue WHERE ID = 'EDI007';
+SELECT * FROM EditionIssue WHERE id = '00000000-0000-0000-0000-000000000407';
 
 
 
@@ -43,19 +45,20 @@ SELECT * FROM EditionIssue WHERE ID = 'EDI007';
 -------------------------------------------------- */
 
 /* Before update */
-SELECT ID, Status
+SELECT id, status
 FROM EditionIssue
-WHERE ID = 'EDI004';
+WHERE id = '00000000-0000-0000-0000-000000000404';
 
 /* Update edition status */
+/* For updating edition_num or isbn values, check if the corresponding publication is a book*/
 UPDATE EditionIssue
-SET Status = 'published'
-WHERE ID = 'EDI004';
+SET status = 'PUBLISHED'
+WHERE id = '00000000-0000-0000-0000-000000000404';
 
 /* After update */
-SELECT ID, Status
+SELECT id, status
 FROM EditionIssue
-WHERE ID = 'EDI004';
+WHERE id = '00000000-0000-0000-0000-000000000404';
 
 
 
@@ -64,18 +67,19 @@ WHERE ID = 'EDI004';
 -------------------------------------------------- */
 
 /* Insert temporary issue for deletion test */
-INSERT INTO EditionIssue (ID, EditionNum, PubDate, Status, ISBN, PublicationID)
-VALUES ('EDI008', NULL, '2024-04-10', 'finished', NULL, 'PUB003');
+/* In application code, check if the corresponding publication is a journal or magazine in case of null isbn or edition_num values*/
+INSERT INTO EditionIssue (id, edition_num, pub_date, status, isbn, price, publication_id)
+VALUES ('00000000-0000-0000-0000-000000000408', NULL, '2024-04-10', 'IN_PROGRESS', NULL, 15.00, '00000000-0000-0000-0000-000000000103');
 
 /* Before delete */
-SELECT * FROM EditionIssue WHERE ID = 'EDI008';
+SELECT * FROM EditionIssue WHERE id = '00000000-0000-0000-0000-000000000408';
 
 /* Delete issue */
 DELETE FROM EditionIssue
-WHERE ID = 'EDI008';
+WHERE id = '00000000-0000-0000-0000-000000000408';
 
 /* After delete */
-SELECT * FROM EditionIssue WHERE ID = 'EDI008';
+SELECT * FROM EditionIssue WHERE id = '00000000-0000-0000-0000-000000000408';
 
 
 
@@ -84,37 +88,37 @@ SELECT * FROM EditionIssue WHERE ID = 'EDI008';
 -------------------------------------------------- */
 
 /* Ensure author exists */
-SELECT * FROM Person WHERE PersonID = 'PER006';
+SELECT * FROM Person WHERE id = '00000000-0000-0000-0000-000000000306';
 
-INSERT INTO Person (PersonID, Name, Role)
-VALUES ('PER006', 'Linda Carter', 'author');
+INSERT INTO Person (id, name, role, affiliation)
+VALUES ('00000000-0000-0000-0000-000000000306', 'Linda Carter', 'AUTHOR', 'INVITED');
 
 /* Verify author */
-SELECT * FROM Person WHERE PersonID = 'PER006';
+SELECT * FROM Person WHERE id = '00000000-0000-0000-0000-000000000306';
 
 
 /* Before inserting article */
-SELECT * FROM Content WHERE ContentID = 'CON007';
+SELECT * FROM Content WHERE id = '00000000-0000-0000-0000-000000000507';
 
 /* Insert article */
 INSERT INTO Content
-(ContentID, ContentTitle, Topic, DateWritten, ContentType, ContentText, ID)
+(id, content_title, topic, date_written, content_type, content_text, edition_issue_id)
 VALUES
-('CON007', 'AI in Healthcare', 'Technology', '2024-04-02', 'article',
-'Initial article text for AI in healthcare.', 'EDI007');
+('00000000-0000-0000-0000-000000000507', 'AI in Healthcare', 'Science', '2024-04-02', 'ARTICLE',
+'Initial article text for AI in healthcare.', '00000000-0000-0000-0000-000000000407');
 
 /* After insert */
-SELECT * FROM Content WHERE ContentID = 'CON007';
+SELECT * FROM Content WHERE id = '00000000-0000-0000-0000-000000000507';
 
 
 /* Link author to article */
-SELECT * FROM Writes WHERE ContentID = 'CON007';
+SELECT * FROM Writes WHERE content_id = '00000000-0000-0000-0000-000000000507';
 
-INSERT INTO Writes (PersonID, ContentID)
-VALUES ('PER006', 'CON007');
+INSERT INTO Writes (person_id, content_id)
+VALUES ('00000000-0000-0000-0000-000000000306', '00000000-0000-0000-0000-000000000507');
 
 /* Verify author linkage */
-SELECT * FROM Writes WHERE ContentID = 'CON007';
+SELECT * FROM Writes WHERE content_id = '00000000-0000-0000-0000-000000000507';
 
 
 
@@ -123,21 +127,21 @@ SELECT * FROM Writes WHERE ContentID = 'CON007';
 -------------------------------------------------- */
 
 /* Before update */
-SELECT ContentID, ContentTitle, Topic, DateWritten
+SELECT id, content_title, topic, date_written
 FROM Content
-WHERE ContentID = 'CON007';
+WHERE id = '00000000-0000-0000-0000-000000000507';
 
 /* Update metadata */
 UPDATE Content
-SET ContentTitle = 'AI in Modern Healthcare',
-    Topic = 'Health Technology',
-    DateWritten = '2024-04-03'
-WHERE ContentID = 'CON007';
+SET content_title = 'AI in Modern Healthcare',
+    topic = 'Science',
+    date_written = '2024-04-03'
+WHERE id = '00000000-0000-0000-0000-000000000507';
 
 /* After update */
-SELECT ContentID, ContentTitle, Topic, DateWritten
+SELECT id, content_title, topic, date_written
 FROM Content
-WHERE ContentID = 'CON007';
+WHERE id = '00000000-0000-0000-0000-000000000507';
 
 
 
@@ -146,19 +150,19 @@ WHERE ContentID = 'CON007';
 -------------------------------------------------- */
 
 /* Before update */
-SELECT ContentID, ContentText
+SELECT id, content_text
 FROM Content
-WHERE ContentID = 'CON007';
+WHERE id = '00000000-0000-0000-0000-000000000507';
 
 /* Update text */
 UPDATE Content
-SET ContentText = 'Updated full article text for AI in modern healthcare.'
-WHERE ContentID = 'CON007';
+SET content_text = 'Updated full article text for AI in modern healthcare.'
+WHERE id = '00000000-0000-0000-0000-000000000507';
 
 /* After update */
-SELECT ContentID, ContentText
+SELECT id, content_text
 FROM Content
-WHERE ContentID = 'CON007';
+WHERE id = '00000000-0000-0000-0000-000000000507';
 
 
 
@@ -166,21 +170,23 @@ WHERE ContentID = 'CON007';
 2H. Find books and articles by topic
 -------------------------------------------------- */
 
-SELECT 'Publication' AS ResultType,
-       PublicationID AS EntityID,
-       Title AS Name,
-       PrimaryTopic AS Topic
+SELECT 'Book' AS ResultType,
+       id AS entity_id,
+       title AS name,
+       primary_topic AS topic
 FROM Publications
-WHERE PrimaryTopic = 'Technology'
+WHERE primary_topic = 'Technology'
+  AND type = 'BOOK'
 
 UNION
 
-SELECT 'Content' AS ResultType,
-       ContentID AS EntityID,
-       ContentTitle AS Name,
-       Topic
+SELECT 'Article' AS ResultType,
+       id AS entity_id,
+       content_title AS name,
+       topic
 FROM Content
-WHERE Topic = 'Technology';
+WHERE topic = 'Technology'
+  AND content_type = 'ARTICLE';
 
 
 
@@ -188,21 +194,27 @@ WHERE Topic = 'Technology';
 2I. Find books and articles by specific date range
 -------------------------------------------------- */
 
-SELECT 'EditionIssue' AS ResultType,
-       ID AS EntityID,
-       PubDate AS RelevantDate,
-       PublicationID
-FROM EditionIssue
-WHERE PubDate BETWEEN '2024-02-01' AND '2024-03-31'
+SELECT 'Book' AS ResultType,
+       pub.id AS entity_id,
+       pub.title AS title,
+       MIN(ei.pub_date) AS relevant_date,
+       pub.id AS parent_id
+FROM Publications pub
+JOIN EditionIssue ei ON ei.publication_id = pub.id
+WHERE pub.type = 'BOOK'
+  AND ei.pub_date BETWEEN '2024-02-01' AND '2024-03-31'
+GROUP BY pub.id, pub.title
 
 UNION
 
-SELECT 'Content' AS ResultType,
-       ContentID AS EntityID,
-       DateWritten AS RelevantDate,
-       ID
-FROM Content
-WHERE DateWritten BETWEEN '2024-02-01' AND '2024-03-31';
+SELECT 'Article' AS ResultType,
+       c.id AS entity_id,
+       c.content_title AS title,
+       c.date_written AS relevant_date,
+       c.edition_issue_id AS parent_id
+FROM Content c
+WHERE date_written BETWEEN '2024-02-01' AND '2024-03-31'
+  AND content_type = 'ARTICLE';
 
 
 
@@ -210,17 +222,32 @@ WHERE DateWritten BETWEEN '2024-02-01' AND '2024-03-31';
 2J. Find books and articles by author name
 -------------------------------------------------- */
 
+/* Adding both chapter and book check for extra safety*/
 SELECT
-    p.Name AS AuthorName,
-    c.ContentID,
-    c.ContentTitle,
-    c.Topic,
-    c.DateWritten
-FROM Person p
-JOIN Writes w ON p.PersonID = w.PersonID
-JOIN Content c ON w.ContentID = c.ContentID
-WHERE p.Name = 'John Smith';
+    p.name AS author_name,
+    pub.title AS publication_title,
+    pub.id
+FROM Writes w
+JOIN Person p ON w.person_id = p.id
+JOIN Content c ON c.id = w.content_id
+JOIN EditionIssue ei ON ei.id = c.edition_issue_id
+JOIN Publications pub ON pub.id = ei.publication_id
+WHERE p.name = 'John Smith'
+    AND c.content_type = 'CHAPTER'
+    AND pub.type = 'BOOK'
+GROUP BY p.name, pub.title, pub.id;
 
+SELECT
+    p.name AS author_name,
+    c.id AS content_id,
+    c.content_title AS title,
+    c.topic,
+    c.date_written
+FROM Writes w
+JOIN Person p ON p.id = w.person_id
+JOIN Content c ON c.id = w.content_id
+WHERE p.name = 'John Smith'
+    AND c.content_type = 'ARTICLE';
 
 
 /* --------------------------------------------------
@@ -228,16 +255,16 @@ WHERE p.Name = 'John Smith';
 -------------------------------------------------- */
 
 /* Before insert */
-SELECT * FROM StaffPayments WHERE PaymentID = 'SPY006';
+SELECT * FROM UserPayments WHERE id = '00000000-0000-0000-0000-000000000606';
 
 /* Insert payment */
-INSERT INTO StaffPayments
-(PaymentID, PaymentType, Amount, IssueDate, ClaimedDate, PersonID)
+INSERT INTO UserPayments
+(id, payment_type, amount, issue_date, claimed_date, person_id)
 VALUES
-('SPY006', 'article authorship', 275.00, '2024-04-05', NULL, 'PER006');
+('00000000-0000-0000-0000-000000000606', 'ARTICLE_AUTHORSHIP', 275.00, '2024-04-05', NULL, '00000000-0000-0000-0000-000000000306');
 
 /* After insert */
-SELECT * FROM StaffPayments WHERE PaymentID = 'SPY006';
+SELECT * FROM UserPayments WHERE id = '00000000-0000-0000-0000-000000000606';
 
 
 
@@ -246,19 +273,19 @@ SELECT * FROM StaffPayments WHERE PaymentID = 'SPY006';
 -------------------------------------------------- */
 
 /* Before update */
-SELECT PaymentID, ClaimedDate
-FROM StaffPayments
-WHERE PaymentID = 'SPY002';
+SELECT id, claimed_date
+FROM UserPayments
+WHERE id = '00000000-0000-0000-0000-000000000602';
 
 /* Update claim date */
-UPDATE StaffPayments
-SET ClaimedDate = '2024-04-08'
-WHERE PaymentID = 'SPY002';
+UPDATE UserPayments
+SET claimed_date = '2024-04-08'
+WHERE id = '00000000-0000-0000-0000-000000000602';
 
 /* After update */
-SELECT PaymentID, ClaimedDate
-FROM StaffPayments
-WHERE PaymentID = 'SPY002';
+SELECT id, claimed_date
+FROM UserPayments
+WHERE id = '00000000-0000-0000-0000-000000000602';
 
 
 
@@ -266,15 +293,15 @@ WHERE PaymentID = 'SPY002';
 2M. List payments issued but not claimed within a date range
 -------------------------------------------------- */
 
-SELECT PaymentID,
-       PaymentType,
-       Amount,
-       IssueDate,
-       ClaimedDate,
-       PersonID
-FROM StaffPayments
-WHERE ClaimedDate IS NULL
-AND IssueDate BETWEEN '2024-02-01' AND '2024-04-30';
+SELECT id,
+       payment_type,
+       amount,
+       issue_date,
+       claimed_date,
+       person_id
+FROM UserPayments
+WHERE claimed_date IS NULL
+AND issue_date BETWEEN '2024-02-01' AND '2024-04-30';
 
 
 
@@ -283,16 +310,15 @@ AND IssueDate BETWEEN '2024-02-01' AND '2024-04-30';
 -------------------------------------------------- */
 
 SELECT
-    ei.ID AS EditionIssueID,
-    pub.Title AS PublicationTitle,
-    c.ContentID,
-    c.ContentTitle,
-    c.Topic,
-    c.DateWritten
-FROM EditionIssue ei
-JOIN Publications pub
-ON ei.PublicationID = pub.PublicationID
-JOIN Content c
-ON ei.ID = c.ID
-WHERE ei.ID IN ('EDI002', 'EDI003')
-ORDER BY ei.ID, c.ContentID;
+    ei.id AS edition_issue_id,
+    pub.title AS publication_title,
+    c.id,
+    c.content_title AS title,
+    c.topic,
+    c.date_written
+FROM Publications pub 
+JOIN EditionIssue ei ON ei.publication_id = pub.id
+JOIN Content c ON c.edition_issue_id = ei.id
+WHERE ei.id IN ('00000000-0000-0000-0000-000000000401', '00000000-0000-0000-0000-000000000402')
+  AND c.content_type = 'ARTICLE'
+ORDER BY ei.id, c.id;
