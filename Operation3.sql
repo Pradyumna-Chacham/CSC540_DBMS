@@ -80,6 +80,7 @@ WHERE id = '00000000-0000-0000-0000-000000000706';
 
 /* Insert new order */
 /* In application code, fetch the current price of the edition or issue as unit_price*/
+/* In application code, check if the corresponding edition or issue is published*/
 INSERT INTO Orders
 (id, quantity, unit_price, ship_cost, order_date, required_by_date, billed_date, total_billed_amount, distributor_id, edition_issue_id)
 VALUES
