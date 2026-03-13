@@ -45,8 +45,10 @@ CREATE TABLE EditionIssue (
     pub_date DATE NULL,
     status VARCHAR(50) NOT NULL,
     isbn VARCHAR(20) NULL UNIQUE,
+    price DECIMAL(10,2) NOT NULL,
     publication_id CHAR(36) NOT NULL,
     CHECK (status IN ('IN_PROGRESS', 'FINISHED', 'PUBLISHED', 'UNPUBLISHED')),
+    CHECK (price >= 0),
     FOREIGN KEY (publication_id) REFERENCES Publications(id)
 );
 
