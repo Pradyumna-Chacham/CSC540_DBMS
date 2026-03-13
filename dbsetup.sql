@@ -4,119 +4,119 @@ use proj2;
 
 
 CREATE TABLE Publications (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    Title VARCHAR(255) NOT NULL,
-    Type VARCHAR(50) NOT NULL,
-    Periodicity VARCHAR(50) NULL,
-    PrimaryTopic VARCHAR(100) NOT NULL,
-    CHECK (Type IN ('BOOK', 'JOURNAL', 'MAGAZINE')),
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    title VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    periodicity VARCHAR(50) NULL,
+    primary_topic VARCHAR(100) NOT NULL,
+    CHECK (type IN ('BOOK', 'JOURNAL', 'MAGAZINE')),
     CHECK (
-        (Type = 'BOOK' AND Periodicity IS NULL) OR
-        (Type IN ('JOURNAL', 'MAGAZINE') AND Periodicity IS NOT NULL)
+        (type = 'BOOK' AND periodicity IS NULL) OR
+        (type IN ('JOURNAL', 'MAGAZINE') AND periodicity IS NOT NULL)
     )
 );
 
 CREATE TABLE Distributors (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    Name VARCHAR(255) NOT NULL,
-    Address VARCHAR(255) NOT NULL,
-    Type VARCHAR(50) NOT NULL,
-    PhoneNumber VARCHAR(20) NOT NULL,
-    ContactName VARCHAR(255) NOT NULL,
-    Balance DECIMAL(12,2) NOT NULL,
-    City VARCHAR(100) NOT NULL,
-    Country VARCHAR(100) NOT NULL,
-    CHECK (Type IN ('BOOKSTORE', 'WHOLESALE', 'LIBRARY')),
-    CHECK (Balance >= 0)
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
+    contact_name VARCHAR(255) NOT NULL,
+    balance DECIMAL(12,2) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    country VARCHAR(100) NOT NULL,
+    CHECK (type IN ('BOOKSTORE', 'WHOLESALE', 'LIBRARY')),
+    CHECK (balance >= 0)
 );
 
 CREATE TABLE Person (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    Name VARCHAR(255) NOT NULL,
-    Role VARCHAR(20) NOT NULL,
-    Affiliation VARCHAR(100) NOT NULL,
-    CHECK (Role IN ('AUTHOR', 'EDITOR', 'BOTH')),
-    CHECK (Affiliation IN ('STAFF', 'INVITED'))
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    name VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    affiliation VARCHAR(100) NOT NULL,
+    CHECK (role IN ('AUTHOR', 'EDITOR', 'BOTH')),
+    CHECK (affiliation IN ('STAFF', 'INVITED'))
 );
 
 CREATE TABLE EditionIssue (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    EditionNum INT NULL,
-    PubDate DATE NULL,
-    Status VARCHAR(50) NOT NULL,
-    ISBN VARCHAR(20) NULL UNIQUE,
-    PublicationID CHAR(36) NOT NULL,
-    CHECK (Status IN ('IN_PROGRESS', 'FINISHED', 'PUBLISHED', 'UNPUBLISHED')),
-    FOREIGN KEY (PublicationID) REFERENCES Publications(ID)
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    edition_num INT NULL,
+    pub_date DATE NULL,
+    status VARCHAR(50) NOT NULL,
+    isbn VARCHAR(20) NULL UNIQUE,
+    publication_id CHAR(36) NOT NULL,
+    CHECK (status IN ('IN_PROGRESS', 'FINISHED', 'PUBLISHED', 'UNPUBLISHED')),
+    FOREIGN KEY (publication_id) REFERENCES Publications(id)
 );
 
 CREATE TABLE Content (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    ContentTitle VARCHAR(255) NOT NULL,
-    Topic VARCHAR(100) NOT NULL,
-    DateWritten DATE NOT NULL,
-    ContentType VARCHAR(50) NOT NULL,
-    ContentText TEXT NOT NULL,
-    EditionIssueID CHAR(36) NOT NULL,
-    CHECK (ContentType IN ('ARTICLE', 'CHAPTER', 'SECTION')),
-    FOREIGN KEY (EditionIssueID) REFERENCES EditionIssue(ID)
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    content_title VARCHAR(255) NOT NULL,
+    topic VARCHAR(100) NOT NULL,
+    date_written DATE NOT NULL,
+    content_type VARCHAR(50) NOT NULL,
+    content_text TEXT NOT NULL,
+    edition_issue_id CHAR(36) NOT NULL,
+    CHECK (content_type IN ('ARTICLE', 'CHAPTER', 'SECTION')),
+    FOREIGN KEY (edition_issue_id) REFERENCES EditionIssue(id)
 );
 
 CREATE TABLE UserPayments (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    PaymentType VARCHAR(100) NOT NULL,
-    Amount DECIMAL(10,2) NOT NULL,
-    IssueDate DATE NOT NULL,
-    ClaimedDate DATE NULL,
-    PersonID CHAR(36) NOT NULL,
-    CHECK (PaymentType IN ('BOOK_AUTHORSHIP', 'ARTICLE_AUTHORSHIP', 'EDITORIAL_WORK')),
-    CHECK (Amount >= 0),
-    CHECK (ClaimedDate IS NULL OR ClaimedDate >= IssueDate),
-    FOREIGN KEY (PersonID) REFERENCES Person(ID)
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    payment_type VARCHAR(100) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    issue_date DATE NOT NULL,
+    claimed_date DATE NULL,
+    person_id CHAR(36) NOT NULL,
+    CHECK (payment_type IN ('BOOK_AUTHORSHIP', 'ARTICLE_AUTHORSHIP', 'EDITORIAL_WORK')),
+    CHECK (amount >= 0),
+    CHECK (claimed_date IS NULL OR claimed_date >= issue_date),
+    FOREIGN KEY (person_id) REFERENCES Person(id)
 );
 
 CREATE TABLE Orders (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    Quantity INT NOT NULL,
-    UnitPrice DECIMAL(10,2) NOT NULL,
-    ShipCost DECIMAL(10,2) NOT NULL,
-    OrderDate DATE NOT NULL,
-    RequiredByDate DATE NOT NULL,
-    BilledDate DATE NULL,
-    TotalBilledAmount DECIMAL(12,2) NULL,
-    DistributorID CHAR(36) NOT NULL,
-    EditionIssueID CHAR(36) NOT NULL,
-    CHECK (Quantity > 0),
-    CHECK (UnitPrice >= 0),
-    CHECK (ShipCost >= 0),
-    CHECK (TotalBilledAmount IS NULL OR TotalBilledAmount >= 0),
-    CHECK (RequiredByDate >= OrderDate),
-    CHECK (BilledDate IS NULL OR BilledDate >= OrderDate),
-    FOREIGN KEY (DistributorID) REFERENCES Distributors(ID),
-    FOREIGN KEY (EditionIssueID) REFERENCES EditionIssue(ID)
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    ship_cost DECIMAL(10,2) NOT NULL,
+    order_date DATE NOT NULL,
+    required_by_date DATE NOT NULL,
+    billed_date DATE NULL,
+    total_billed_amount DECIMAL(12,2) NULL,
+    distributor_id CHAR(36) NOT NULL,
+    edition_issue_id CHAR(36) NOT NULL,
+    CHECK (quantity > 0),
+    CHECK (unit_price >= 0),
+    CHECK (ship_cost >= 0),
+    CHECK (total_billed_amount IS NULL OR total_billed_amount >= 0),
+    CHECK (required_by_date >= order_date),
+    CHECK (billed_date IS NULL OR billed_date >= order_date),
+    FOREIGN KEY (distributor_id) REFERENCES Distributors(id),
+    FOREIGN KEY (edition_issue_id) REFERENCES EditionIssue(id)
 );
 
 CREATE TABLE DistPayment (
-    ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    Amount DECIMAL(10,2) NOT NULL,
-    PayDate DATE NOT NULL,
-    DistributorID CHAR(36) NOT NULL,
-    CHECK (Amount >= 0),
-    FOREIGN KEY (DistributorID) REFERENCES Distributors(ID)
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    amount DECIMAL(10,2) NOT NULL,
+    pay_date DATE NOT NULL,
+    distributor_id CHAR(36) NOT NULL,
+    CHECK (amount >= 0),
+    FOREIGN KEY (distributor_id) REFERENCES Distributors(id)
 );
 
 CREATE TABLE Edits (
-    PersonID CHAR(36) NOT NULL,
-    PublicationID CHAR(36) NOT NULL,
-    PRIMARY KEY (PersonID, PublicationID),
-    FOREIGN KEY (PersonID) REFERENCES Person(ID),
-    FOREIGN KEY (PublicationID) REFERENCES Publications(ID)
+    person_id CHAR(36) NOT NULL,
+    publication_id CHAR(36) NOT NULL,
+    PRIMARY KEY (person_id, publication_id),
+    FOREIGN KEY (person_id) REFERENCES Person(id),
+    FOREIGN KEY (publication_id) REFERENCES Publications(id)
 );
 
 CREATE TABLE Writes (
-    PersonID CHAR(36) NOT NULL,
-    ContentID CHAR(36) NOT NULL,
-    PRIMARY KEY (PersonID, ContentID),
-    FOREIGN KEY (PersonID) REFERENCES Person(ID),
-    FOREIGN KEY (ContentID) REFERENCES Content(ID)
+    person_id CHAR(36) NOT NULL,
+    content_id CHAR(36) NOT NULL,
+    PRIMARY KEY (person_id, content_id),
+    FOREIGN KEY (person_id) REFERENCES Person(id),
+    FOREIGN KEY (content_id) REFERENCES Content(id)
 );
