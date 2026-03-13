@@ -82,15 +82,24 @@ WHERE e.person_id = '00000000-0000-0000-0000-000000000302';
 -------------------------------------------------- */
 
 /* Before insert */
-SELECT * FROM Content WHERE id = '00000000-0000-0000-0000-000000000506';
+SELECT * FROM Content
+WHERE id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 /* Insert content */
+/* In application code, check if the corresponding publcation has the same topic as the content*/
 INSERT INTO Content (id, content_title, topic, date_written, content_type, content_text, edition_issue_id)
 VALUES ('00000000-0000-0000-0000-000000000506', 'Advanced SQL Optimization', 'Technology', '2024-03-25',
 'CHAPTER', 'This chapter discusses advanced SQL optimization techniques.', '00000000-0000-0000-0000-000000000401');
 
+/* Insert article example */
+/* In application code, check if the corresponding publcation has the same topic as the content*/
+INSERT INTO Content (id, content_title, topic, date_written, content_type, content_text, edition_issue_id)
+VALUES ('00000000-0000-0000-0000-000000000508', 'Cloud Database Trends', 'Science', '2024-03-26',
+'ARTICLE', 'This article highlights recent cloud database trends and tradeoffs.', '00000000-0000-0000-0000-000000000402');
+
 /* After insert */
-SELECT * FROM Content WHERE id = '00000000-0000-0000-0000-000000000506';
+SELECT * FROM Content
+WHERE id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 
 /* --------------------------------------------------
@@ -98,27 +107,37 @@ Assign author to the newly created article/chapter
 -------------------------------------------------- */
 
 /* Before insert */
-SELECT * FROM Writes WHERE content_id = '00000000-0000-0000-0000-000000000506';
+SELECT * FROM Writes
+WHERE content_id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 /* Link author to the article */
 INSERT INTO Writes (person_id, content_id)
 VALUES ('00000000-0000-0000-0000-000000000301', '00000000-0000-0000-0000-000000000506');
 
+/* Link author to the new article example */
+INSERT INTO Writes (person_id, content_id)
+VALUES ('00000000-0000-0000-0000-000000000303', '00000000-0000-0000-0000-000000000508');
+
 /* After insert */
-SELECT * FROM Writes WHERE content_id = '00000000-0000-0000-0000-000000000506';
+SELECT * FROM Writes
+WHERE content_id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 /* --------------------------------------------------
 1G. Delete article/chapter from table of contents
 -------------------------------------------------- */
 
 /* Before delete */
-SELECT * FROM Content WHERE id = '00000000-0000-0000-0000-000000000506';
+SELECT * FROM Content
+WHERE id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 /* Remove author mapping */
-DELETE FROM Writes WHERE content_id = '00000000-0000-0000-0000-000000000506';
+DELETE FROM Writes
+WHERE content_id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 /* Delete content */
-DELETE FROM Content WHERE id = '00000000-0000-0000-0000-000000000506';
+DELETE FROM Content
+WHERE id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
 
 /* After delete */
-SELECT * FROM Content WHERE id = '00000000-0000-0000-0000-000000000506';
+SELECT * FROM Content
+WHERE id IN ('00000000-0000-0000-0000-000000000506', '00000000-0000-0000-0000-000000000508');
