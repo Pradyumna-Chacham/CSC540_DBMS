@@ -123,6 +123,38 @@ SELECT * FROM Writes WHERE content_id = '00000000-0000-0000-0000-000000000507';
 
 
 /* --------------------------------------------------
+2E2. Create a new author and update content author mapping
+-------------------------------------------------- */
+
+/* Before insert: verify new author does not exist */
+SELECT * FROM Person WHERE id = '00000000-0000-0000-0000-000000000307';
+
+/* Create new author */
+INSERT INTO Person (id, name, role, affiliation)
+VALUES ('00000000-0000-0000-0000-000000000307', 'Daniel Moore', 'AUTHOR', 'INVITED');
+
+/* Verify new author */
+SELECT * FROM Person WHERE id = '00000000-0000-0000-0000-000000000307';
+
+/* Before update: current content-author mapping */
+SELECT w.content_id, w.person_id, p.name AS author_name
+FROM Writes w
+JOIN Person p ON p.id = w.person_id
+WHERE w.content_id = '00000000-0000-0000-0000-000000000507';
+
+/* Update content author (relink content to the new author) */
+UPDATE Writes
+SET person_id = '00000000-0000-0000-0000-000000000307'
+WHERE content_id = '00000000-0000-0000-0000-000000000507'
+  AND person_id = '00000000-0000-0000-0000-000000000306';
+
+/* After update: verify updated mapping */
+SELECT w.content_id, w.person_id, p.name AS author_name
+FROM Writes w
+JOIN Person p ON p.id = w.person_id
+WHERE w.content_id = '00000000-0000-0000-0000-000000000507';
+
+/* --------------------------------------------------
 2F. Update article/chapter metadata
 -------------------------------------------------- */
 
