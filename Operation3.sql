@@ -1,4 +1,4 @@
-USE CSC540;
+USE proj2;
 
 /* =========================================================
    3. DISTRIBUTION
@@ -12,18 +12,18 @@ USE CSC540;
 /* Before insert */
 SELECT * 
 FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 /* Insert new distributor */
 INSERT INTO Distributors
-(DistributorID, Name, Address, Type, PhoneNumber, ContactName, Balance, City, Country)
+(id, name, address, type, phone_number, contact_name, balance, city, country)
 VALUES
-('DST006', 'Scholars Point', '101 College Ave', 'Library', '9196666666', 'Nina Patel', 0.00, 'Raleigh', 'USA');
+('00000000-0000-0000-0000-000000000206', 'Scholars Point', '101 College Ave', 'LIBRARY', '9196666666', 'Nina Patel', 0.00, 'Raleigh', 'USA');
 
 /* After insert */
 SELECT * 
 FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 
 
@@ -32,20 +32,20 @@ WHERE DistributorID = 'DST006';
 -------------------------------------------------- */
 
 /* Before update */
-SELECT DistributorID, Name, PhoneNumber, ContactName
+SELECT id, name, phone_number, contact_name
 FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 /* Update distributor information */
 UPDATE Distributors
-SET PhoneNumber = '9197777777',
-    ContactName = 'Nina Shah'
-WHERE DistributorID = 'DST006';
+SET phone_number = '9197777777',
+    contact_name = 'Nina Shah'
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 /* After update */
-SELECT DistributorID, Name, PhoneNumber, ContactName
+SELECT id, name, phone_number, contact_name
 FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 
 
@@ -56,16 +56,16 @@ WHERE DistributorID = 'DST006';
 /* Before delete */
 SELECT * 
 FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 /* Delete distributor */
 DELETE FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 /* After delete */
 SELECT * 
 FROM Distributors
-WHERE DistributorID = 'DST006';
+WHERE id = '00000000-0000-0000-0000-000000000206';
 
 
 
@@ -76,57 +76,58 @@ WHERE DistributorID = 'DST006';
 /* Before insert */
 SELECT * 
 FROM Orders
-WHERE OrderID = 'ORD006';
+WHERE id = '00000000-0000-0000-0000-000000000706';
 
 /* Insert new order */
+/* In application code, fetch the current price of the edition or issue as unit_price*/
 INSERT INTO Orders
-(OrderID, Quantity, UnitPrice, ShipCost, OrderDate, RequiredByDate, BilledDate, TotalBilledAmount, DistributorID, PublicationID)
+(id, quantity, unit_price, ship_cost, order_date, required_by_date, billed_date, total_billed_amount, distributor_id, edition_issue_id)
 VALUES
-('ORD006', 60, 20.00, 25.00, '2024-04-06', '2024-04-15', NULL, NULL, 'DST001', 'PUB006');
+('00000000-0000-0000-0000-000000000706', 60, 20.00, 25.00, '2024-04-06', '2024-04-15', NULL, NULL, '00000000-0000-0000-0000-000000000201', '00000000-0000-0000-0000-000000000401');
 
 /* After insert */
 SELECT * 
 FROM Orders
-WHERE OrderID = 'ORD006';
+WHERE id = '00000000-0000-0000-0000-000000000706';
 
 
 
 /* --------------------------------------------------
 3E. Bill distributor for an order
-   Assumption: TotalBilledAmount = Quantity * UnitPrice + ShipCost
+   Assumption: total_billed_amount = quantity * unit_price + ship_cost
 -------------------------------------------------- */
 
 /* Before billing: order state */
-SELECT OrderID, Quantity, UnitPrice, ShipCost, BilledDate, TotalBilledAmount, DistributorID
+SELECT id, quantity, unit_price, ship_cost, billed_date, total_billed_amount, distributor_id
 FROM Orders
-WHERE OrderID = 'ORD006';
+WHERE id = '00000000-0000-0000-0000-000000000706';
 
 /* Before billing: distributor balance */
-SELECT DistributorID, Name, Balance
+SELECT id, name, balance
 FROM Distributors
-WHERE DistributorID = 'DST001';
+WHERE id = '00000000-0000-0000-0000-000000000201';
 
 /* Step 1: set billed date and billed amount */
 UPDATE Orders
-SET BilledDate = '2024-04-07',
-    TotalBilledAmount = (Quantity * UnitPrice) + ShipCost
-WHERE OrderID = 'ORD006';
+SET billed_date = '2024-04-07',
+    total_billed_amount = (quantity * unit_price) + ship_cost
+WHERE id = '00000000-0000-0000-0000-000000000706';
 
 /* Check order after billing update */
-SELECT OrderID, Quantity, UnitPrice, ShipCost, BilledDate, TotalBilledAmount, DistributorID
+SELECT id, quantity, unit_price, ship_cost, billed_date, total_billed_amount, distributor_id
 FROM Orders
-WHERE OrderID = 'ORD006';
+WHERE id = '00000000-0000-0000-0000-000000000706';
 
 /* Step 2: add billed amount to distributor balance */
 UPDATE Distributors d
-JOIN Orders o ON d.DistributorID = o.DistributorID
-SET d.Balance = d.Balance + o.TotalBilledAmount
-WHERE o.OrderID = 'ORD006';
+JOIN Orders o ON d.id = o.distributor_id
+SET d.balance = d.balance + o.total_billed_amount
+WHERE o.id = '00000000-0000-0000-0000-000000000706';
 
 /* After billing: distributor balance */
-SELECT DistributorID, Name, Balance
+SELECT id, name, balance
 FROM Distributors
-WHERE DistributorID = 'DST001';
+WHERE id = '00000000-0000-0000-0000-000000000201';
 
 
 
@@ -135,33 +136,33 @@ WHERE DistributorID = 'DST001';
 -------------------------------------------------- */
 
 /* Before payment: distributor balance */
-SELECT DistributorID, Name, Balance
+SELECT id, name, balance
 FROM Distributors
-WHERE DistributorID = 'DST001';
+WHERE id = '00000000-0000-0000-0000-000000000201';
 
 /* Before payment: payment record */
 SELECT *
 FROM DistPayment
-WHERE DistPayID = 'DPY006';
+WHERE id = '00000000-0000-0000-0000-000000000806';
 
 /* Step 1: record distributor payment */
-INSERT INTO DistPayment (DistPayID, Amount, PayDate, DistributorID)
-VALUES ('DPY006', 500.00, '2024-04-08', 'DST001');
+INSERT INTO DistPayment (id, amount, pay_date, distributor_id)
+VALUES ('00000000-0000-0000-0000-000000000806', 500.00, '2024-04-08', '00000000-0000-0000-0000-000000000201');
 
 /* Check payment record after insert */
 SELECT *
 FROM DistPayment
-WHERE DistPayID = 'DPY006';
+WHERE id = '00000000-0000-0000-0000-000000000806';
 
 /* Step 2: reduce distributor balance */
 UPDATE Distributors
-SET Balance = Balance - 500.00
-WHERE DistributorID = 'DST001';
+SET balance = balance - 500.00
+WHERE id = '00000000-0000-0000-0000-000000000201';
 
 /* After payment: distributor balance */
-SELECT DistributorID, Name, Balance
+SELECT id, name, balance
 FROM Distributors
-WHERE DistributorID = 'DST001';
+WHERE id = '00000000-0000-0000-0000-000000000201';
 
 
 
@@ -170,17 +171,17 @@ WHERE DistributorID = 'DST001';
     does not match the sum of recorded payments
 -------------------------------------------------- */
 
-SELECT d.DistributorID,
-       d.Name,
-       COALESCE(SUM(o.TotalBilledAmount), 0) AS TotalBilled,
-       COALESCE(SUM(dp.Amount), 0) AS TotalPaid
+SELECT d.id AS distributor_id,
+       d.name,
+       COALESCE(SUM(o.total_billed_amount), 0) AS total_billed,
+       COALESCE(SUM(dp.amount), 0) AS total_paid
 FROM Distributors d
 LEFT JOIN Orders o
-    ON d.DistributorID = o.DistributorID
+    ON d.id = o.distributor_id
 LEFT JOIN DistPayment dp
-    ON d.DistributorID = dp.DistributorID
-GROUP BY d.DistributorID, d.Name
-HAVING COALESCE(SUM(o.TotalBilledAmount), 0) <> COALESCE(SUM(dp.Amount), 0);
+    ON d.id = dp.distributor_id
+GROUP BY d.id, d.name
+HAVING COALESCE(SUM(o.total_billed_amount), 0) <> COALESCE(SUM(dp.amount), 0);
 
 
 
@@ -188,7 +189,7 @@ HAVING COALESCE(SUM(o.TotalBilledAmount), 0) <> COALESCE(SUM(dp.Amount), 0);
 3H. List all distributors of a specific type located in a given city
 -------------------------------------------------- */
 
-SELECT DistributorID, Name, Address, PhoneNumber, ContactName, Balance
+SELECT id AS distributor_id, name, address, phone_number, contact_name, balance
 FROM Distributors
-WHERE Type = 'Bookstore'
-  AND City = 'Raleigh' and Country='USA';
+WHERE type = 'BOOKSTORE'
+  AND city = 'Raleigh' and country='USA';
