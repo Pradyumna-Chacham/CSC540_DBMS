@@ -1,47 +1,50 @@
-use csc540;
+use proj2;
 
-/* Query 1: Find content by topic */
-SELECT ContentID, ContentTitle, Topic, DateWritten
+/* Query 1: Find articles by topic */
+SELECT id, content_title, topic, date_written
 FROM Content
-WHERE Topic = 'Technology';
+WHERE topic = 'Technology'
+  AND content_type = 'ARTICLE';
 
 
 /* Explain before Index*/
 EXPLAIN
-SELECT ContentID, ContentTitle, Topic, DateWritten
+SELECT id, content_title, topic, date_written
 FROM Content
-WHERE Topic = 'Technology';
+WHERE topic = 'Technology'
+  AND content_type = 'ARTICLE';
 
 /*Create Index*/
-CREATE INDEX idx_content_topic
-ON Content(Topic);
+CREATE INDEX idx_content_type_topic
+ON Content(content_type, topic);
 
 /* Explain after Index*/
 EXPLAIN
-SELECT ContentID, ContentTitle, Topic, DateWritten
+SELECT id, content_title, topic, date_written
 FROM Content
-WHERE Topic = 'Technology';
+WHERE topic = 'Technology'
+  AND content_type = 'ARTICLE';
 
 /* Query 2: List distributors by type and city */
-SELECT DistributorID, Name, Address, PhoneNumber, ContactName, Balance
+SELECT id, name, address, phone_number, contact_name, balance
 FROM Distributors
-WHERE Type = 'Bookstore'
-  AND City = 'Raleigh';
+WHERE type = 'BOOKSTORE'
+  AND city = 'Raleigh';
 
 /* Explain before Index*/
 EXPLAIN
-SELECT DistributorID, Name, Address, PhoneNumber, ContactName, Balance
+SELECT id, name, address, phone_number, contact_name, balance
 FROM Distributors
-WHERE Type = 'Bookstore'
-  AND City = 'Raleigh';
+WHERE type = 'BOOKSTORE'
+  AND city = 'Raleigh';
 
 /*Create Index*/
 CREATE INDEX idx_distributors_type_city
-ON Distributors(Type, City);
+ON Distributors(type, city);
 
 /* Explain after Index*/
 EXPLAIN
-SELECT DistributorID, Name, Address, PhoneNumber, ContactName, Balance
+SELECT id, name, address, phone_number, contact_name, balance
 FROM Distributors
-WHERE Type = 'Bookstore'
-  AND City = 'Raleigh';
+WHERE type = 'BOOKSTORE'
+  AND city = 'Raleigh';
