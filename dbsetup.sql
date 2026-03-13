@@ -34,7 +34,9 @@ CREATE TABLE Person (
     ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
     Name VARCHAR(255) NOT NULL,
     Role VARCHAR(20) NOT NULL,
-    CHECK (Role IN ('AUTHOR', 'EDITOR', 'BOTH'))
+    Affiliation VARCHAR(100) NOT NULL,
+    CHECK (Role IN ('AUTHOR', 'EDITOR', 'BOTH')),
+    CHECK (Affiliation IN ('STAFF', 'INVITED'))
 );
 
 CREATE TABLE EditionIssue (
@@ -63,12 +65,11 @@ CREATE TABLE Content (
 CREATE TABLE UserPayments (
     ID CHAR(36) PRIMARY KEY DEFAULT (UUID()),
     PaymentType VARCHAR(100) NOT NULL,
-    WorkType VARCHAR(100) NOT NULL,
     Amount DECIMAL(10,2) NOT NULL,
     IssueDate DATE NOT NULL,
     ClaimedDate DATE NULL,
     PersonID CHAR(36) NOT NULL,
-    CHECK (WorkType IN ('BOOK_AUTHORSHIP', 'ARTICLE_AUTHORSHIP', 'EDITORIAL_WORK')),
+    CHECK (PaymentType IN ('BOOK_AUTHORSHIP', 'ARTICLE_AUTHORSHIP', 'EDITORIAL_WORK')),
     CHECK (Amount >= 0),
     CHECK (ClaimedDate IS NULL OR ClaimedDate >= IssueDate),
     FOREIGN KEY (PersonID) REFERENCES Person(ID)
