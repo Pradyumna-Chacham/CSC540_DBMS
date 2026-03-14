@@ -186,6 +186,31 @@ HAVING COALESCE(SUM(o.total_billed_amount), 0) <> COALESCE(SUM(dp.amount), 0);
 
 
 
+WITH billed AS (
+    SELECT
+        o.distributor_id,
+        COALESCE(SUM(o.total_billed_amount), 0) AS total_billed
+    FROM Orders o
+    GROUP BY o.distributor_id
+),
+paid AS (
+    SELECT
+        dp.distributor_id,
+        COALESCE(SUM(dp.amount), 0) AS total_paid
+    FROM DistPayment dp
+    GROUP BY dp.distributor_id
+)
+SELECT
+    d.id AS distributor_id,
+    d.name,
+    COALESCE(b.total_billed, 0) AS total_billed,
+    COALESCE(p.total_paid, 0) AS total_paid
+FROM Distributors d
+LEFT JOIN billed b ON b.distributor_id = d.id
+LEFT JOIN paid p ON p.distributor_id = d.id
+WHERE COALESCE(b.total_billed, 0) <> COALESCE(p.total_paid, 0)
+ORDER BY d.name;
+
 /* --------------------------------------------------
 3H. List all distributors of a specific type located in a given city
 -------------------------------------------------- */

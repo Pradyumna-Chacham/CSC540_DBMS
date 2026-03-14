@@ -3,7 +3,7 @@ use proj2;
 /* Query 1: Find articles by topic */
 SELECT id, content_title, topic, date_written
 FROM Content
-WHERE topic = 'Technology'
+WHERE topic = 'Science'
   AND content_type = 'ARTICLE';
 
 
@@ -11,7 +11,7 @@ WHERE topic = 'Technology'
 EXPLAIN
 SELECT id, content_title, topic, date_written
 FROM Content
-WHERE topic = 'Technology'
+WHERE topic = 'Science'
   AND content_type = 'ARTICLE';
 
 /*Create Index*/
@@ -22,7 +22,7 @@ ON Content(content_type, topic);
 EXPLAIN
 SELECT id, content_title, topic, date_written
 FROM Content
-WHERE topic = 'Technology'
+WHERE topic = 'Science'
   AND content_type = 'ARTICLE';
 
 /* Query 2: List distributors by type and city */

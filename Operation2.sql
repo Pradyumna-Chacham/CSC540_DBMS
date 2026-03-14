@@ -351,6 +351,6 @@ SELECT
 FROM Publications pub 
 JOIN EditionIssue ei ON ei.publication_id = pub.id
 JOIN Content c ON c.edition_issue_id = ei.id
-WHERE ei.id IN ('00000000-0000-0000-0000-000000000401', '00000000-0000-0000-0000-000000000402')
+WHERE ei.id IN ('00000000-0000-0000-0000-000000000407', '00000000-0000-0000-0000-000000000402')
   AND c.content_type = 'ARTICLE'
 ORDER BY ei.id, c.id;
