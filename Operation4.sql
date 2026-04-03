@@ -1,89 +1,96 @@
-use csc540;
+use proj2;
 
 /* =========================================================
    4. REPORTS
-   Treat each “per ...” as an independent operation
+   Treating each “per ...” as an independent operation
    ========================================================= */
 
-/* 4A. Weekly report: number and total price of copies of each publication bought per distributor, per week */
-SELECT d.DistributorID,
-       d.Name AS DistributorName,
-       o.PublicationID,
-       YEAR(o.OrderDate) AS ReportYear,
-       WEEK(o.OrderDate) AS ReportWeek,
-       SUM(o.Quantity) AS TotalCopies,
-       SUM(o.Quantity * o.UnitPrice) AS TotalPrice
+/* 4A. Number and total price of copies of each publication bought per distributor */
+SELECT d.id AS distributor_id,
+       d.name AS distributor_name,
+       ei.publication_id,
+       SUM(o.quantity) AS total_copies,
+       SUM(o.quantity * o.unit_price) AS total_price
 FROM Orders o
-JOIN Distributors d ON o.DistributorID = d.DistributorID
-GROUP BY d.DistributorID, d.Name, o.PublicationID, YEAR(o.OrderDate), WEEK(o.OrderDate)
-ORDER BY ReportYear, ReportWeek, d.DistributorID, o.PublicationID;
+JOIN Distributors d ON o.distributor_id = d.id
+JOIN EditionIssue ei ON o.edition_issue_id = ei.id
+GROUP BY d.id, d.name, ei.publication_id
+ORDER BY d.id, ei.publication_id;
 
-/* 4B. Monthly report: number and total price of copies of each publication bought per distributor, per month */
-SELECT d.DistributorID,
-       d.Name AS DistributorName,
-       o.PublicationID,
-       YEAR(o.OrderDate) AS ReportYear,
-       MONTH(o.OrderDate) AS ReportMonth,
-       SUM(o.Quantity) AS TotalCopies,
-       SUM(o.Quantity * o.UnitPrice) AS TotalPrice
+/* 4B. Number and total price of copies of each publication bought per week */
+SELECT YEAR(o.order_date) AS report_year,
+       WEEK(o.order_date) AS report_week,
+       ei.publication_id,
+       SUM(o.quantity) AS total_copies,
+       SUM(o.quantity * o.unit_price) AS total_price
 FROM Orders o
-JOIN Distributors d ON o.DistributorID = d.DistributorID
-GROUP BY d.DistributorID, d.Name, o.PublicationID, YEAR(o.OrderDate), MONTH(o.OrderDate)
-ORDER BY ReportYear, ReportMonth, d.DistributorID, o.PublicationID;
+JOIN EditionIssue ei ON o.edition_issue_id = ei.id
+GROUP BY YEAR(o.order_date), WEEK(o.order_date), ei.publication_id
+ORDER BY report_year, report_week, ei.publication_id;
 
-/* 4C. Total revenue of the publishing house
+/* 4C. Number and total price of copies of each publication bought per month */
+SELECT YEAR(o.order_date) AS report_year,
+       MONTH(o.order_date) AS report_month,
+       ei.publication_id,
+       SUM(o.quantity) AS total_copies,
+       SUM(o.quantity * o.unit_price) AS total_price
+FROM Orders o
+JOIN EditionIssue ei ON o.edition_issue_id = ei.id
+GROUP BY YEAR(o.order_date), MONTH(o.order_date), ei.publication_id
+ORDER BY report_year, report_month, ei.publication_id;
+
+/* 4D. Total revenue of the publishing house
    Assumption: revenue is based on billed amounts only */
-SELECT COALESCE(SUM(TotalBilledAmount), 0) AS TotalRevenue
-FROM Orders
-WHERE TotalBilledAmount IS NOT NULL;
+SELECT COALESCE(SUM(total_billed_amount), 0) AS total_revenue
+FROM Orders;
 
-/* 4D. Total expenses of the publishing house
-   Assumption: expenses = shipping costs + staff payments */
+/* 4E. Total expenses of the publishing house
+   Assumption: expenses = shipping costs + user payments */
 SELECT
-    (SELECT COALESCE(SUM(ShipCost), 0) FROM Orders) +
-    (SELECT COALESCE(SUM(Amount), 0) FROM StaffPayments) AS TotalExpenses;
+    (SELECT COALESCE(SUM(ship_cost), 0) FROM Orders) +
+    (SELECT COALESCE(SUM(amount), 0) FROM UserPayments) AS total_expenses;
 
-/* 4E. Total current number of distributors */
-SELECT COUNT(*) AS TotalCurrentDistributors
+/* 4F. Total current number of distributors */
+SELECT COUNT(*) AS total_current_distributors
 FROM Distributors;
 
-/* 4F. Total revenue since inception per city */
-SELECT d.City,
-       COALESCE(SUM(o.TotalBilledAmount), 0) AS RevenuePerCity
+/* 4G. Total revenue since inception per city(of distributors) */
+SELECT d.city,
+       COALESCE(SUM(o.total_billed_amount), 0) AS revenue_per_city
 FROM Distributors d
-LEFT JOIN Orders o ON d.DistributorID = o.DistributorID
-GROUP BY d.City
-ORDER BY RevenuePerCity DESC;
+LEFT JOIN Orders o ON d.id = o.distributor_id
+GROUP BY d.city
+ORDER BY revenue_per_city DESC;
 
-/* 4G. Total revenue since inception per distributor */
-SELECT d.DistributorID,
-       d.Name,
-       COALESCE(SUM(o.TotalBilledAmount), 0) AS RevenuePerDistributor
+/* 4H. Total revenue since inception per distributor */
+SELECT d.id AS distributor_id,
+       d.name,
+       COALESCE(SUM(o.total_billed_amount), 0) AS revenue_per_distributor
 FROM Distributors d
-LEFT JOIN Orders o ON d.DistributorID = o.DistributorID
-GROUP BY d.DistributorID, d.Name
-ORDER BY RevenuePerDistributor DESC;
+LEFT JOIN Orders o ON d.id = o.distributor_id
+GROUP BY d.id, d.name
+ORDER BY revenue_per_distributor DESC;
 
-/* 4H. Total revenue since inception per location
+/* 4I. Total revenue since inception per location
    Assumption: location = country */
-SELECT d.Country,
-       COALESCE(SUM(o.TotalBilledAmount), 0) AS RevenuePerLocation
+SELECT d.country,
+       COALESCE(SUM(o.total_billed_amount), 0) AS revenue_per_location
 FROM Distributors d
-LEFT JOIN Orders o ON d.DistributorID = o.DistributorID
-GROUP BY d.Country
-ORDER BY RevenuePerLocation DESC;
+LEFT JOIN Orders o ON d.id = o.distributor_id
+GROUP BY d.country
+ORDER BY revenue_per_location DESC;
 
-/* 4I. Total payments to editors and authors per month */
-SELECT YEAR(IssueDate) AS PayYear,
-       MONTH(IssueDate) AS PayMonth,
-       SUM(Amount) AS TotalPayments
-FROM StaffPayments
-GROUP BY YEAR(IssueDate), MONTH(IssueDate)
-ORDER BY PayYear, PayMonth;
+/* 4J. Total payments to editors and authors per month */
+SELECT YEAR(issue_date) AS pay_year,
+       MONTH(issue_date) AS pay_month,
+       SUM(amount) AS total_payments
+FROM UserPayments
+GROUP BY YEAR(issue_date), MONTH(issue_date)
+ORDER BY pay_year, pay_month;
 
-/* 4J. Total payments by work type */
-SELECT PaymentType,
-       SUM(Amount) AS TotalPaymentsByWorkType
-FROM StaffPayments
-GROUP BY PaymentType
-ORDER BY PaymentType;
+/* 4K. Total payments by work type */
+SELECT payment_type,
+       SUM(amount) AS total_payments_by_work_type
+FROM UserPayments
+GROUP BY payment_type
+ORDER BY payment_type;
