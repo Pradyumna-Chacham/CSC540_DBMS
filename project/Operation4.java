@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Menu-driven class for reporting operations.
+ *
+ * This class generates summary reports from orders, payments, and distributor data.
+ */
 public class Operation4 {
 
     private final Connection conn;
@@ -17,6 +22,9 @@ public class Operation4 {
         this.scanner = scanner;
     }
 
+    /**
+     * Run the Reports submenu until the user requests exit.
+     */
     public void runMenu() {
         boolean back = false;
 
@@ -81,6 +89,9 @@ public class Operation4 {
         }
     }
 
+    /**
+     * Print the report selection menu.
+     */
     private void printMenu() {
         System.out.println("==================================");
         System.out.println("=== Reports ======================");
@@ -99,6 +110,9 @@ public class Operation4 {
         System.out.println("0. Back");
     }
 
+    /**
+     * Report total copies and revenue per distributor and publication.
+     */
     private void copiesAndTotalPricePerDistributor() {
         String sql =
                 "SELECT d.id AS distributor_id, " +
@@ -145,6 +159,9 @@ public class Operation4 {
         runAndPrintQuery(sql);
     }
 
+    /**
+     * Report the total revenue from all billed orders.
+     */
     private void totalRevenue() {
         String sql =
                 "SELECT COALESCE(SUM(total_billed_amount), 0) AS total_revenue " +
@@ -230,6 +247,9 @@ public class Operation4 {
         runAndPrintQuery(sql);
     }
 
+    /**
+     * Execute a SQL query and print the result set as a table.
+     */
     private void runAndPrintQuery(String sql) {
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {

@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+/**
+ * Menu-driven class for editing and publishing workflows.
+ *
+ * This class handles publication creation, editor assignment,
+ * and table-of-contents content management for the application.
+ */
 public class Operation1 {
 
     private final Connection conn;
@@ -19,6 +25,9 @@ public class Operation1 {
         this.scanner = scanner;
     }
 
+    /**
+     * Run the Editing and Publishing submenu until the user chooses to return.
+     */
     public void runMenu() {
         boolean back = false;
 
@@ -67,6 +76,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Print the available operations for Editing and Publishing.
+     */
     private void printMenu() {
         System.out.println("==================================");
         System.out.println("=== Editing and Publishing =======");
@@ -81,6 +93,9 @@ public class Operation1 {
         System.out.println("0. Back");
     }
 
+    /**
+     * Prompt the user for publication details and insert a new publication row.
+     */
     private void enterPublication() {
         String sql = "INSERT INTO Publications (id, title, type, periodicity, primary_topic) VALUES (?, ?, ?, ?, ?)";
 
@@ -145,6 +160,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Update title, periodicity, or primary topic for an existing publication.
+     */
     private void updatePublication() {
         System.out.print("Publication ID: ");
         String publicationId = scanner.nextLine().trim();
@@ -222,6 +240,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Assign an editor to a publication when the person has the correct role.
+     */
     private void assignEditor() {
         System.out.print("Publication ID: ");
         String publicationId = scanner.nextLine().trim();
@@ -267,6 +288,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Remove an editor assignment from a publication.
+     */
     private void removeEditor() {
         System.out.print("Publication ID: ");
         String publicationId = scanner.nextLine().trim();
@@ -296,6 +320,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Display all publications assigned to the specified editor.
+     */
     private void viewPublicationsByEditor() {
         System.out.print("Editor Person ID: ");
         String personId = scanner.nextLine().trim();
@@ -328,6 +355,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Add new content to the table of contents and link it with its author.
+     */
     private void addContentToTOC() {
         boolean previousAutoCommit = true;
 
@@ -454,6 +484,9 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Delete content and its associated writes relationship from the TOC.
+     */
     private void deleteContentFromTOC() {
         boolean previousAutoCommit = true;
 

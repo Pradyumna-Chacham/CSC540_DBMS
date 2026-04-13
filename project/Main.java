@@ -2,6 +2,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/**
+ * Main entry point for the GutenbergPubs management console application.
+ *
+ * This class initializes the database connection and presents a
+ * main menu for selecting different publication workflows.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -24,6 +30,7 @@ public class Main {
 
             System.out.println("Database connected successfully.\n");
 
+            // Initialize operation modules with shared connection and input scanner
             Operation1 op1 = new Operation1(conn, scanner);
             Operation2 op2 = new Operation2(conn, scanner);
             Operation3 op3 = new Operation3(conn, scanner);
@@ -76,6 +83,9 @@ public class Main {
         }
     }
 
+    /**
+     * Display the top-level menu for the different workflow sections.
+     */
     private static void printMainMenu() {
         System.out.println("1. Editing and Publishing");
         System.out.println("2. Production of Editions/Issues");

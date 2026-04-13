@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+/**
+ * Menu-driven class for distribution workflow management.
+ *
+ * This class handles distributors, orders, billing, distributor payments,
+ * and reports about billing mismatches or distributor revenue.
+ */
 public class Operation3 {
 
     private final Connection conn;
@@ -20,6 +26,9 @@ public class Operation3 {
         this.scanner = scanner;
     }
 
+    /**
+     * Run the Distribution submenu until the user chooses to go back.
+     */
     public void runMenu() {
         boolean back = false;
 
@@ -72,6 +81,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Print the Distribution menu options.
+     */
     private void printMenu() {
         System.out.println("==================================");
         System.out.println("=== Distribution =================");
@@ -87,6 +99,9 @@ public class Operation3 {
         System.out.println("0. Back");
     }
 
+    /**
+     * Prompt for distributor details and insert a new distributor entry.
+     */
     private void enterDistributor() {
         try {
             System.out.print("Name: ");
@@ -156,6 +171,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Update distributor contact and location information.
+     */
     private void updateDistributor() {
         System.out.print("Distributor ID: ");
         String distributorId = scanner.nextLine().trim();
@@ -240,6 +258,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Delete a distributor when there are no related orders or payments.
+     */
     private void deleteDistributor() {
         System.out.print("Distributor ID: ");
         String distributorId = scanner.nextLine().trim();
@@ -275,6 +296,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Record a new distributor order for a published edition or issue.
+     */
     private void inputOrder() {
         try {
             System.out.print("Distributor ID: ");
@@ -369,6 +393,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Bill a distributor for an order and update the distributor's balance.
+     */
     private void billDistributor() {
         boolean previousAutoCommit = true;
 
@@ -416,6 +443,8 @@ public class Operation3 {
             String updateDistributorSql =
                     "UPDATE Distributors SET balance = balance + ? WHERE id = ?";
 
+            // Preserve the current auto-commit setting because we need to manage
+            // transaction boundaries manually for this billing workflow.
             previousAutoCommit = conn.getAutoCommit();
             conn.setAutoCommit(false);
 
@@ -431,14 +460,18 @@ public class Operation3 {
                 psDistributor.setString(2, info.distributorId);
                 psDistributor.executeUpdate();
 
+                // The order billing and distributor balance update are both complete,
+                // so commit them together as a single atomic transaction.
                 conn.commit();
                 System.out.println("[SUCCESS] Order billed and distributor balance updated.");
 
             } catch (SQLException e) {
+                // If any step in the billing transaction fails, undo all changes.
                 conn.rollback();
                 System.out.println("[ERROR] " + e.getMessage());
                 System.out.println("Transaction rolled back. No changes made.");
             } finally {
+                // Restore the connection's original auto-commit setting after the transaction.
                 conn.setAutoCommit(previousAutoCommit);
             }
 
@@ -448,6 +481,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Record a payment received from a distributor and adjust the balance.
+     */
     private void recordPayment() {
         boolean previousAutoCommit = true;
 
@@ -480,6 +516,7 @@ public class Operation3 {
             String updateDistributorSql =
                     "UPDATE Distributors SET balance = balance - ? WHERE id = ?";
 
+            // Use an explicit transaction for payment recording plus balance update.
             previousAutoCommit = conn.getAutoCommit();
             conn.setAutoCommit(false);
 
@@ -496,15 +533,19 @@ public class Operation3 {
                 psDistributor.setString(2, distributorId);
                 psDistributor.executeUpdate();
 
+                // Commit both the payment row and balance adjustment together.
                 conn.commit();
                 System.out.println("[SUCCESS] Distributor payment recorded and balance updated.");
                 System.out.println("DistPayment ID: " + paymentId);
 
             } catch (SQLException e) {
+                // The payment insert and balance update must both succeed together.
+                // Roll back entire transaction if either statement fails.
                 conn.rollback();
                 System.out.println("[ERROR] " + e.getMessage());
                 System.out.println("Transaction rolled back. No changes made.");
             } finally {
+                // Ensure auto-commit is returned to its previous state after transaction logic.
                 conn.setAutoCommit(previousAutoCommit);
             }
 
@@ -516,6 +557,9 @@ public class Operation3 {
         }
     }
 
+    /**
+     * Display distributors whose billed total does not match payments made.
+     */
     private void findMismatchedDistributors() {
         String sql =
                 "WITH billed AS (" +

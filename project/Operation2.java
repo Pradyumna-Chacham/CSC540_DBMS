@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+/**
+ * Menu-driven class for production and edition/issue management.
+ *
+ * This class handles book editions, journal/magazine issues, author content,
+ * payments, and reporting queries in the production workflow.
+ */
 public class Operation2 {
 
     private final Connection conn;
@@ -20,6 +26,9 @@ public class Operation2 {
         this.scanner = scanner;
     }
 
+    /**
+     * Run the Production of Editions/Issues submenu until the user returns.
+     */
     public void runMenu() {
         boolean back = false;
 
@@ -96,6 +105,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Print the menu options for production operations.
+     */
     private void printMenu() {
         System.out.println("==========================================");
         System.out.println("=== Production of Editions / Issues ======");
@@ -117,6 +129,9 @@ public class Operation2 {
         System.out.println("0. Back");
     }
 
+    /**
+     * Capture details and insert a new book edition record.
+     */
     private void enterBookEdition() {
         String publicationId;
         int editionNum;
@@ -218,6 +233,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Capture details and insert a new journal or magazine issue record.
+     */
     private void enterIssue() {
         String publicationId;
         Date pubDate;
@@ -293,6 +311,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Update the status, price, or publication date of an edition/issue.
+     */
     private void updateEditionIssue() {
         System.out.print("Edition/Issue ID: ");
         String editionIssueId = scanner.nextLine().trim();
@@ -401,6 +422,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Delete an edition or issue if there are no related content or order rows.
+     */
     private void deleteEditionIssue() {
         System.out.print("Edition/Issue ID: ");
         String editionIssueId = scanner.nextLine().trim();
@@ -436,6 +460,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Enter a new article/chapter and link it to an author for an edition/issue.
+     */
     private void enterContent() {
         boolean previousAutoCommit = true;
 
@@ -516,6 +543,9 @@ public class Operation2 {
             String insertWritesSql =
                     "INSERT INTO Writes (person_id, content_id) VALUES (?, ?)";
 
+            // Save the current auto-commit state so it can be restored later.
+            // Disable auto-commit because this operation involves multiple related
+            // inserts that must either both succeed or both fail together.
             previousAutoCommit = conn.getAutoCommit();
             conn.setAutoCommit(false);
 
@@ -535,15 +565,18 @@ public class Operation2 {
                 psWrites.setString(2, contentId);
                 psWrites.executeUpdate();
 
+                // Both related inserts succeeded, commit the transaction so data is saved atomically.
                 conn.commit();
                 System.out.println("[SUCCESS] Content created and author linked.");
                 System.out.println("Content ID: " + contentId);
 
             } catch (SQLException e) {
+                // On any SQL failure, rollback the transaction to avoid partial writes.
                 conn.rollback();
                 System.out.println("[ERROR] " + e.getMessage());
                 System.out.println("Transaction rolled back. No changes made.");
             } finally {
+                // Restore the original auto-commit mode after the transaction completes.
                 conn.setAutoCommit(previousAutoCommit);
             }
 
@@ -553,6 +586,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Update metadata fields for existing content.
+     */
     private void updateContentMetadata() {
         System.out.print("Content ID: ");
         String contentId = scanner.nextLine().trim();
@@ -627,6 +663,9 @@ public class Operation2 {
         }
     }
 
+    /**
+     * Update the text body for an existing content item.
+     */
     private void updateContentText() {
         System.out.print("Content ID: ");
         String contentId = scanner.nextLine().trim();
