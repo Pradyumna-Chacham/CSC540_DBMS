@@ -1,4 +1,4 @@
-use proj2;
+use pchacha2;
 
 INSERT INTO Publications (id, title, type, periodicity, primary_topic) VALUES
 ('00000000-0000-0000-0000-000000000101', 'Modern Databases', 'BOOK', NULL, 'Technology'),
