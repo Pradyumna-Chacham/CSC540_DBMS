@@ -436,8 +436,9 @@ public class Operation1 {
             }
 
             if (!topic.equalsIgnoreCase(publicationTopic)) {
-                System.out.println("[ERROR] Content topic must match the publication primary topic.");
-                return;
+                System.out.println("Publication topic: " + publicationTopic);
+                System.out.println("Entered content topic: " + topic);
+                System.out.println("[WARNING] Content topic differs from publication primary topic.");
             }
 
             Date dateWritten;
