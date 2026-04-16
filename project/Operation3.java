@@ -143,8 +143,8 @@ public class Operation3 {
 
             String id = UUID.randomUUID().toString();
             String sql = "INSERT INTO Distributors " +
-                    "(id, name, address, type, phone_number, contact_name, balance, city, country) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "(id, name, address, type, phone_number, contact_name, balance, balance_last_updated, city, country) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, id);
@@ -154,8 +154,9 @@ public class Operation3 {
                 ps.setString(5, phoneNumber);
                 ps.setString(6, contactName);
                 ps.setDouble(7, 0.00);
-                ps.setString(8, city);
-                ps.setString(9, country);
+                ps.setNull(8, Types.DATE);
+                ps.setString(9, city);
+                ps.setString(10, country);
 
                 int rows = ps.executeUpdate();
                 if (rows > 0) {
@@ -441,7 +442,7 @@ public class Operation3 {
             String updateOrderSql =
                     "UPDATE Orders SET billed_date = ?, total_billed_amount = ? WHERE id = ?";
             String updateDistributorSql =
-                    "UPDATE Distributors SET balance = balance + ? WHERE id = ?";
+                    "UPDATE Distributors SET balance = balance + ?, balance_last_updated = ? WHERE id = ?";
 
             // Preserve the current auto-commit setting because we need to manage
             // transaction boundaries manually for this billing workflow.
@@ -457,7 +458,8 @@ public class Operation3 {
                 psOrder.executeUpdate();
 
                 psDistributor.setDouble(1, totalBilledAmount);
-                psDistributor.setString(2, info.distributorId);
+                psDistributor.setDate(2, billedDate);
+                psDistributor.setString(3, info.distributorId);
                 psDistributor.executeUpdate();
 
                 // The order billing and distributor balance update are both complete,
@@ -514,7 +516,7 @@ public class Operation3 {
             String insertPaymentSql =
                     "INSERT INTO DistPayment (id, amount, pay_date, distributor_id) VALUES (?, ?, ?, ?)";
             String updateDistributorSql =
-                    "UPDATE Distributors SET balance = balance - ? WHERE id = ?";
+                    "UPDATE Distributors SET balance = balance - ?, balance_last_updated = ? WHERE id = ?";
 
             // Use an explicit transaction for payment recording plus balance update.
             previousAutoCommit = conn.getAutoCommit();
@@ -530,7 +532,8 @@ public class Operation3 {
                 psPayment.executeUpdate();
 
                 psDistributor.setDouble(1, amount);
-                psDistributor.setString(2, distributorId);
+                psDistributor.setDate(2, payDate);
+                psDistributor.setString(3, distributorId);
                 psDistributor.executeUpdate();
 
                 // Commit both the payment row and balance adjustment together.
@@ -607,7 +610,7 @@ public class Operation3 {
         }
 
         String sql =
-                "SELECT id AS distributor_id, name, address, phone_number, contact_name, balance " +
+                "SELECT id AS distributor_id, name, address, phone_number, contact_name, balance, balance_last_updated " +
                 "FROM Distributors " +
                 "WHERE type = ? AND city = ? " +
                 "ORDER BY name";

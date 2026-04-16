@@ -94,6 +94,10 @@ public class Operation2 {
                 case "14":
                     compareIssues();
                     break;
+                case "2O":
+                case "15":
+                    viewRelatedWorkForPerson();
+                    break;
                 case "0":
                     back = true;
                     break;
@@ -126,6 +130,7 @@ public class Operation2 {
         System.out.println("2L. Update payment claimed date");
         System.out.println("2M. List unclaimed payments in date range");
         System.out.println("2N. Compare two issues by articles");
+        System.out.println("2O. View related work for a person");
         System.out.println("0. Back");
     }
 
@@ -851,6 +856,13 @@ public class Operation2 {
                 return;
             }
 
+            System.out.print("Edition/Issue ID, blank allowed: ");
+            String editionIssueId = scanner.nextLine().trim();
+            if (!editionIssueId.isEmpty() && !editionIssueExists(editionIssueId)) {
+                System.out.println("[ERROR] Edition/Issue not found.");
+                return;
+            }
+
             System.out.print("Claimed date (YYYY-MM-DD), blank allowed: ");
             String claimedInput = scanner.nextLine().trim();
             Date claimedDate = null;
@@ -866,7 +878,7 @@ public class Operation2 {
             }
 
             String id = UUID.randomUUID().toString();
-            String sql = "INSERT INTO UserPayments (id, payment_type, amount, issue_date, claimed_date, person_id) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO UserPayments (id, payment_type, amount, issue_date, claimed_date, person_id, edition_issue_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, id);
@@ -879,6 +891,11 @@ public class Operation2 {
                     ps.setDate(5, claimedDate);
                 }
                 ps.setString(6, personId);
+                if (editionIssueId.isEmpty()) {
+                    ps.setNull(7, Types.CHAR);
+                } else {
+                    ps.setString(7, editionIssueId);
+                }
 
                 int rows = ps.executeUpdate();
                 if (rows > 0) {
@@ -959,8 +976,17 @@ public class Operation2 {
         }
 
         String sql =
-                "SELECT id, payment_type, amount, issue_date, claimed_date, person_id " +
-                "FROM UserPayments " +
+                "SELECT up.id, up.payment_type, up.amount, up.issue_date, up.claimed_date, up.person_id, " +
+                "       up.edition_issue_id, " +
+                "       CASE " +
+                "           WHEN pub.title IS NULL AND ei.pub_date IS NULL THEN NULL " +
+                "           WHEN ei.pub_date IS NULL THEN pub.title " +
+                "           WHEN pub.title IS NULL THEN CAST(ei.pub_date AS CHAR) " +
+                "           ELSE CONCAT(pub.title, ' - ', ei.pub_date) " +
+                "       END AS related_work " +
+                "FROM UserPayments up " +
+                "LEFT JOIN EditionIssue ei ON ei.id = up.edition_issue_id " +
+                "LEFT JOIN Publications pub ON pub.id = ei.publication_id " +
                 "WHERE claimed_date IS NULL AND issue_date BETWEEN ? AND ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -1007,6 +1033,72 @@ public class Operation2 {
 
             try (ResultSet rs = ps.executeQuery()) {
                 printResultSetAsTable(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        }
+    }
+
+    private void viewRelatedWorkForPerson() {
+        System.out.print("Person ID: ");
+        String personId = scanner.nextLine().trim();
+
+        if (!personExists(personId)) {
+            System.out.println("[ERROR] Person not found.");
+            return;
+        }
+
+        String role = getPersonRole(personId);
+        if (role == null) {
+            System.out.println("[ERROR] Could not retrieve person role.");
+            return;
+        }
+
+        String authoredWorkSql =
+                "SELECT p.id AS person_id, p.name AS person_name, p.role, " +
+                "       c.id AS content_id, c.content_title, c.content_type, c.topic, c.date_written, " +
+                "       ei.id AS edition_issue_id, pub.title AS publication_title, ei.pub_date AS publication_date " +
+                "FROM Person p " +
+                "JOIN Writes w ON w.person_id = p.id " +
+                "JOIN Content c ON c.id = w.content_id " +
+                "JOIN EditionIssue ei ON ei.id = c.edition_issue_id " +
+                "JOIN Publications pub ON pub.id = ei.publication_id " +
+                "WHERE p.id = ? " +
+                "ORDER BY c.date_written, c.id";
+
+        String editedWorkSql =
+                "SELECT p.id AS person_id, p.name AS person_name, p.role, " +
+                "       pub.id AS publication_id, pub.title AS publication_title, pub.type AS publication_type, " +
+                "       ei.id AS edition_issue_id, ei.pub_date AS publication_date, ei.edition_num, ei.isbn, ei.status " +
+                "FROM Person p " +
+                "JOIN Edits ed ON ed.person_id = p.id " +
+                "JOIN Publications pub ON pub.id = ed.publication_id " +
+                "JOIN EditionIssue ei ON ei.publication_id = pub.id " +
+                "WHERE p.id = ? " +
+                "ORDER BY pub.title, ei.pub_date, ei.id";
+
+        try {
+            if ("AUTHOR".equals(role) || "BOTH".equals(role)) {
+                System.out.println("Authored Work:");
+                try (PreparedStatement ps = conn.prepareStatement(authoredWorkSql)) {
+                    ps.setString(1, personId);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        printResultSetAsTableOrInfo(rs, "[INFO] No authored work found.");
+                    }
+                }
+            }
+
+            if ("EDITOR".equals(role) || "BOTH".equals(role)) {
+                if ("BOTH".equals(role)) {
+                    System.out.println();
+                }
+                System.out.println("Edited Work:");
+                try (PreparedStatement ps = conn.prepareStatement(editedWorkSql)) {
+                    ps.setString(1, personId);
+                    try (ResultSet rs = ps.executeQuery()) {
+                        printResultSetAsTableOrInfo(rs, "[INFO] No edited work found.");
+                    }
+                }
             }
         } catch (SQLException e) {
             System.out.println("[ERROR] " + e.getMessage());
@@ -1309,6 +1401,54 @@ public class Operation2 {
 
     private String nullSafe(String value) {
         return value == null ? "NULL" : value;
+    }
+
+    private void printResultSetAsTableOrInfo(ResultSet rs, String emptyMessage) throws SQLException {
+        ResultSetMetaData meta = rs.getMetaData();
+        int columnCount = meta.getColumnCount();
+
+        List<String[]> rows = new ArrayList<>();
+        int[] widths = new int[columnCount];
+
+        for (int i = 0; i < columnCount; i++) {
+            widths[i] = meta.getColumnLabel(i + 1).length();
+        }
+
+        while (rs.next()) {
+            String[] row = new String[columnCount];
+            for (int i = 0; i < columnCount; i++) {
+                String value = rs.getString(i + 1);
+                if (value == null) {
+                    value = "NULL";
+                }
+                row[i] = value;
+                widths[i] = Math.max(widths[i], value.length());
+            }
+            rows.add(row);
+        }
+
+        if (rows.isEmpty()) {
+            System.out.println(emptyMessage);
+            return;
+        }
+
+        printSeparator(widths);
+
+        for (int i = 0; i < columnCount; i++) {
+            System.out.printf("| %-" + widths[i] + "s ", meta.getColumnLabel(i + 1));
+        }
+        System.out.println("|");
+
+        printSeparator(widths);
+
+        for (String[] row : rows) {
+            for (int i = 0; i < columnCount; i++) {
+                System.out.printf("| %-" + widths[i] + "s ", row[i]);
+            }
+            System.out.println("|");
+        }
+
+        printSeparator(widths);
     }
 
     private void printResultSetAsTable(ResultSet rs) throws SQLException {

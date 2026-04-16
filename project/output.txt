@@ -1,0 +1,1012 @@
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2C
+Edition/Issue ID: 00000000-0000-0000-0000-000000000407
+Leave blank to keep current value.
+New publication date (YYYY-MM-DD), blank keeps current: 
+New status (IN_PROGRESS/FINISHED/PUBLISHED/UNPUBLISHED) [PUBLISHED]: FINISHED
+New price [15.0]: 16.50
+[SUCCESS] Edition/Issue updated.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2D
+Edition/Issue ID: 7494b8b8-a387-4f04-a242-96edf40273ff
+[SUCCESS] Edition/Issue deleted.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2E
+Edition/Issue ID: 00000000-0000-0000-0000-000000000402
+Author Person ID: 00000000-0000-0000-0000-000000000304
+Content title: Ch3 Distributed Query Processing
+Topic: Databases
+Date written (YYYY-MM-DD): 2026-04-10
+Content type (ARTICLE/CHAPTER/SECTION): CHAPTER
+Content text: This chapter discusses distributed query execution and optimization 
+[SUCCESS] Content created and author linked.
+Content ID: df642056-730d-41e4-932f-05135a82c3a1
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2F
+Content ID: df642056-730d-41e4-932f-05135a82c3a1
+Leave blank to keep current value.
+New content title [Ch3 Distributed Query Processing]: Cache Eviction Policy
+New topic [Databases]: Cache Eviction
+New date written (YYYY-MM-DD) [2026-04-10]: 
+[ERROR] Content topic must match the publication primary topic.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2F  
+Content ID: df642056-730d-41e4-932f-05135a82c3a1
+Leave blank to keep current value.
+New content title [Ch3 Distributed Query Processing]: Ch2 cache Eviction Policy
+New topic [Databases]: 
+New date written (YYYY-MM-DD) [2026-04-10]: 
+[SUCCESS] Content metadata updated.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2G
+Content ID: df642056-730d-41e4-932f-05135a82c3a1
+New content text: This is cache eviction policy text
+[SUCCESS] Content text updated.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2H
+Topic: Public Policy
++-------------+--------------------------------------+-----------------------+---------------+
+| result_type | entity_id                            | name                  | topic         |
++-------------+--------------------------------------+-----------------------+---------------+
+| Article     | 00000000-0000-0000-0000-000000000509 | Energy Policy Updates | Public Policy |
++-------------+--------------------------------------+-----------------------+---------------+
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2H
+Topic: Databases
++-------------+--------------------------------------+--------------------------------------+-----------+
+| result_type | entity_id                            | name                                 | topic     |
++-------------+--------------------------------------+--------------------------------------+-----------+
+| Book        | 00000000-0000-0000-0000-000000000101 | Foundations of Distributed Databases | Databases |
++-------------+--------------------------------------+--------------------------------------+-----------+
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2I
+Start date (YYYY-MM-DD): 2025-01-01
+End date (YYYY-MM-DD): 2025-12-31
++-------------+--------------------------------------+--------------------------------------+---------------+--------------------------------------+
+| result_type | entity_id                            | title                                | relevant_date | parent_id                            |
++-------------+--------------------------------------+--------------------------------------+---------------+--------------------------------------+
+| Book        | 00000000-0000-0000-0000-000000000101 | Foundations of Distributed Databases | 2025-03-15    | 00000000-0000-0000-0000-000000000101 |
+| Article     | 00000000-0000-0000-0000-000000000508 | Election Trends Worldwide            | 2025-12-15    | 00000000-0000-0000-0000-000000000406 |
++-------------+--------------------------------------+--------------------------------------+---------------+--------------------------------------+
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2J
+Author name: Alice Morgan
+Books by author:
++--------------+--------------------------------------+--------------------------------------+
+| author_name  | publication_title                    | publication_id                       |
++--------------+--------------------------------------+--------------------------------------+
+| Alice Morgan | Foundations of Distributed Databases | 00000000-0000-0000-0000-000000000101 |
++--------------+--------------------------------------+--------------------------------------+
+
+Articles by author:
+No records found.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2J
+Author name: Sarah Lee
+Books by author:
+No records found.
+
+Articles by author:
++-------------+--------------------------------------+------------+-------------------------+--------------+
+| author_name | content_id                           | title      | topic                   | date_written |
++-------------+--------------------------------------+------------+-------------------------+--------------+
+| Sarah Lee   | 00000000-0000-0000-0000-000000000504 | AI in 2026 | Artificial Intelligence | 2026-01-20   |
++-------------+--------------------------------------+------------+-------------------------+--------------+
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2K
+Person ID: 00000000-0000-0000-0000-000000000305
+Payment type (BOOK_AUTHORSHIP/ARTICLE_AUTHORSHIP/EDITORIAL_WORK): ARTICLE_AUTHORSHIP
+Amount: 1400.00
+Issue date (YYYY-MM-DD): 2026-04-15
+Edition/Issue ID, blank allowed: 
+Claimed date (YYYY-MM-DD), blank allowed: 
+[SUCCESS] Payment created.
+UserPayment ID: 94f1486b-e2ce-45c6-8075-67d0495451a1
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2K
+Person ID: 
+[ERROR] Person not found.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2K
+Person ID: 00000000-0000-0000-0000-000000000301
+Payment type (BOOK_AUTHORSHIP/ARTICLE_AUTHORSHIP/EDITORIAL_WORK): EDITORIAL_WORK
+Amount: 3000
+Issue date (YYYY-MM-DD): 2026-04-15
+Edition/Issue ID, blank allowed: 
+Claimed date (YYYY-MM-DD), blank allowed: 2026-04-20
+[SUCCESS] Payment created.
+UserPayment ID: c7dc0925-bf2f-41f7-8576-00517b0af8cb
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2L
+UserPayment ID: 00000000-0000-0000-0000-000000000615
+
+New claimed date (YYYY-MM-DD): [ERROR] Invalid date format. Use YYYY-MM-DD.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2L  
+UserPayment ID: 00000000-0000-0000-0000-000000000615
+New claimed date (YYYY-MM-DD): 2026-04-15
+[SUCCESS] Claimed date updated.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2M
+Start date (YYYY-MM-DD): 2025-01-01
+End date (YYYY-MM-DD): 2025-12-31
+No records found.
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2M
+Start date (YYYY-MM-DD): 2026-01-01
+End date (YYYY-MM-DD): 2026-03-31
++--------------------------------------+--------------------+---------+------------+--------------+--------------------------------------+--------------------------------------+---------------------------------------------------+
+| id                                   | payment_type       | amount  | issue_date | claimed_date | person_id                            | edition_issue_id                     | related_work                                      |
++--------------------------------------+--------------------+---------+------------+--------------+--------------------------------------+--------------------------------------+---------------------------------------------------+
+| 00000000-0000-0000-0000-000000000602 | BOOK_AUTHORSHIP    | 1000.00 | 2026-02-05 | NULL         | 00000000-0000-0000-0000-000000000304 | 00000000-0000-0000-0000-000000000402 | Foundations of Distributed Databases - 2026-02-01 |
+| 00000000-0000-0000-0000-000000000603 | BOOK_AUTHORSHIP    | 2000.00 | 2026-02-10 | NULL         | 00000000-0000-0000-0000-000000000304 | 00000000-0000-0000-0000-000000000402 | Foundations of Distributed Databases - 2026-02-01 |
+| 00000000-0000-0000-0000-000000000605 | ARTICLE_AUTHORSHIP | 1100.00 | 2026-01-30 | NULL         | 00000000-0000-0000-0000-000000000306 | 00000000-0000-0000-0000-000000000404 | Tech Weekly - 2026-02-08                          |
+| 00000000-0000-0000-0000-000000000607 | ARTICLE_AUTHORSHIP | 1300.00 | 2026-02-05 | NULL         | 00000000-0000-0000-0000-000000000308 | 00000000-0000-0000-0000-000000000405 | Tech Weekly - 2026-02-15                          |
+| 00000000-0000-0000-0000-000000000609 | ARTICLE_AUTHORSHIP | 1180.00 | 2026-01-10 | NULL         | 00000000-0000-0000-0000-000000000310 | 00000000-0000-0000-0000-000000000407 | Global Affairs Review - 2026-02-01                |
+| 00000000-0000-0000-0000-000000000612 | EDITORIAL_WORK     | 2500.00 | 2026-02-28 | NULL         | 00000000-0000-0000-0000-000000000301 | 00000000-0000-0000-0000-000000000405 | Tech Weekly - 2026-02-15                          |
++--------------------------------------+--------------------+---------+------------+--------------+--------------------------------------+--------------------------------------+---------------------------------------------------+
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 2N
+First issue ID: 00000000-0000-0000-0000-000000000403
+Second issue ID: 00000000-0000-0000-0000-000000000404
++--------------------------------------+-------------------+--------------------------------------+--------------------------+-------------------------+--------------+
+| edition_issue_id                     | publication_title | id                                   | title                    | topic                   | date_written |
++--------------------------------------+-------------------+--------------------------------------+--------------------------+-------------------------+--------------+
+| 00000000-0000-0000-0000-000000000403 | Tech Weekly       | 00000000-0000-0000-0000-000000000504 | AI in 2026               | Artificial Intelligence | 2026-01-20   |
+| 00000000-0000-0000-0000-000000000404 | Tech Weekly       | 00000000-0000-0000-0000-000000000505 | Quantum Computing Basics | Quantum Computing       | 2026-01-25   |
+| 00000000-0000-0000-0000-000000000404 | Tech Weekly       | 00000000-0000-0000-0000-000000000506 | Data Privacy in Practice | Cybersecurity           | 2026-01-20   |
++--------------------------------------+-------------------+--------------------------------------+--------------------------+-------------------------+--------------+
+
+==========================================
+=== Production of Editions / Issues ======
+==========================================
+2A. Enter new book edition
+2B. Enter new issue of a periodic publication
+2C. Update edition/issue
+2D. Delete edition/issue
+2E. Enter new article/chapter with author
+2F. Update article/chapter metadata
+2G. Update article text
+2H. Find books/articles by topic
+2I. Find books/articles by date range
+2J. Find books/articles by author name
+2K. Enter payment for author/editor
+2L. Update payment claimed date
+2M. List unclaimed payments in date range
+2N. Compare two issues by articles
+0. Back
+Enter choice: 0
+
+
+1. Editing and Publishing
+2. Production of Editions/Issues
+3. Distribution
+4. Reports
+5. Exit
+Enter choice: 3
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3A
+Name: Sumedh Bhayya
+Address: Chittoor
+Type (BOOKSTORE/WHOLESALE/LIBRARY): WHOLESALE
+Phone number: 123456789
+Contact name: Mrunal Thakur
+City: Tirupati
+Country: India
+[SUCCESS] Distributor created.
+Distributor ID: 68906a84-6464-4e13-99f1-651b39d33e63
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3B
+Distributor ID: 68906a84-6464-4e13-99f1-651b39d33e63
+Leave blank to keep current value.
+New name [Sumedh Bhayya]: Sumedh Raj
+New address [Chittoor]: 
+New phone number [123456789]: 
+New contact name [Mrunal Thakur]: 
+New city [Tirupati]: 
+New country [India]: 
+[SUCCESS] Distributor updated.
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3C
+Distributor ID: 68906a84-6464-4e13-99f1-651b39d33e63
+[SUCCESS] Distributor deleted.
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3D
+Distributor ID: 00000000-0000-0000-0000-000000000202
+Edition/Issue ID: 00000000-0000-0000-0000-000000000403
+Quantity: 300
+Shipping cost: 500.00
+Order date (YYYY-MM-DD): 2026-04-01
+Required by date (YYYY-MM-DD): 2026-04-15
+[SUCCESS] Order created.
+Order ID: 9b4183e0-8018-42f5-a99a-e2a21d386e89
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3E
+Order ID: 9b4183e0-8018-42f5-a99a-e2a21d386e89
+Billed date (YYYY-MM-DD): 2026-04-16
+[SUCCESS] Order billed and distributor balance updated.
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3F
+Distributor ID: 00000000-0000-0000-0000-000000000202
+Amount: 5000
+Payment date (YYYY-MM-DD): 2026-04-15
+[SUCCESS] Distributor payment recorded and balance updated.
+DistPayment ID: 6af0277e-1ca6-4455-a15e-cbdf4497e1fd
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3F
+Distributor ID: 00000000-0000-0000-0000-000000000203
+Amount: 1000
+Payment date (YYYY-MM-DD): 2026-04-15
+[ERROR] (conn=11613) CONSTRAINT `CONSTRAINT_2` failed for `pchacha2`.`Distributors`
+Transaction rolled back. No changes made.
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3G
++--------------------------------------+----------------------------+--------------+------------+
+| distributor_id                       | name                       | total_billed | total_paid |
++--------------------------------------+----------------------------+--------------+------------+
+| 00000000-0000-0000-0000-000000000204 | Capitol City Books         | 0.00         | 4899.50    |
+| 00000000-0000-0000-0000-000000000202 | Eastern Academic Wholesale | 4100.00      | 36100.00   |
+| 00000000-0000-0000-0000-000000000201 | Triangle Books             | 0.00         | 15000.00   |
+| 00000000-0000-0000-0000-000000000203 | Wake County Public Library | 0.00         | 3520.00    |
++--------------------------------------+----------------------------+--------------+------------+
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 3H
+Type (BOOKSTORE/WHOLESALE/LIBRARY): BOOKSTORE
+City: RALEIGH
++--------------------------------------+----------------+--------------------------------------------+----------------+----------------+---------+----------------------+
+| distributor_id                       | name           | address                                    | phone_number   | contact_name   | balance | balance_last_updated |
++--------------------------------------+----------------+--------------------------------------------+----------------+----------------+---------+----------------------+
+| 00000000-0000-0000-0000-000000000201 | Triangle Books | 142 Hillsborough Street, Raleigh, NC 27603 | (919) 555-2101 | Laura Thompson | 4850.00 | 2025-12-31           |
++--------------------------------------+----------------+--------------------------------------------+----------------+----------------+---------+----------------------+
+
+==================================
+=== Distribution =================
+==================================
+3A. Enter new distributor
+3B. Update distributor information
+3C. Delete distributor
+3D. Input order from distributor
+3E. Bill distributor for an order
+3F. Record distributor payment
+3G. Identify distributors with billing mismatches
+3H. List distributors by type and city
+0. Back
+Enter choice: 0
+
+
+1. Editing and Publishing
+2. Production of Editions/Issues
+3. Distribution
+4. Reports
+5. Exit
+Enter choice: 4
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4A
++--------------------------------------+----------------------------+--------------------------------------+--------------+-------------+
+| distributor_id                       | distributor_name           | publication_id                       | total_copies | total_price |
++--------------------------------------+----------------------------+--------------------------------------+--------------+-------------+
+| 00000000-0000-0000-0000-000000000201 | Triangle Books             | 00000000-0000-0000-0000-000000000101 | 120          | 10200.00    |
+| 00000000-0000-0000-0000-000000000202 | Eastern Academic Wholesale | 00000000-0000-0000-0000-000000000102 | 2100         | 25200.00    |
+| 00000000-0000-0000-0000-000000000203 | Wake County Public Library | 00000000-0000-0000-0000-000000000101 | 40           | 3400.00     |
+| 00000000-0000-0000-0000-000000000204 | Capitol City Books         | 00000000-0000-0000-0000-000000000103 | 165          | 2475.00     |
++--------------------------------------+----------------------------+--------------------------------------+--------------+-------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4B
++-------------+-------------+--------------------------------------+--------------+-------------+
+| report_year | report_week | publication_id                       | total_copies | total_price |
++-------------+-------------+--------------------------------------+--------------+-------------+
+| 2026        | 0           | 00000000-0000-0000-0000-000000000103 | 90           | 1350.00     |
+| 2026        | 5           | 00000000-0000-0000-0000-000000000102 | 650          | 7800.00     |
+| 2026        | 5           | 00000000-0000-0000-0000-000000000103 | 75           | 1125.00     |
+| 2026        | 6           | 00000000-0000-0000-0000-000000000101 | 160          | 13600.00    |
+| 2026        | 6           | 00000000-0000-0000-0000-000000000102 | 650          | 7800.00     |
+| 2026        | 7           | 00000000-0000-0000-0000-000000000102 | 500          | 6000.00     |
+| 2026        | 13          | 00000000-0000-0000-0000-000000000102 | 300          | 3600.00     |
++-------------+-------------+--------------------------------------+--------------+-------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4C
++-------------+--------------+--------------------------------------+--------------+-------------+
+| report_year | report_month | publication_id                       | total_copies | total_price |
++-------------+--------------+--------------------------------------+--------------+-------------+
+| 2026        | 1            | 00000000-0000-0000-0000-000000000103 | 90           | 1350.00     |
+| 2026        | 2            | 00000000-0000-0000-0000-000000000101 | 160          | 13600.00    |
+| 2026        | 2            | 00000000-0000-0000-0000-000000000102 | 1800         | 21600.00    |
+| 2026        | 2            | 00000000-0000-0000-0000-000000000103 | 75           | 1125.00     |
+| 2026        | 4            | 00000000-0000-0000-0000-000000000102 | 300          | 3600.00     |
++-------------+--------------+--------------------------------------+--------------+-------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4D
++---------------+
+| total_revenue |
++---------------+
+| 4100.00       |
++---------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4E
++----------------+
+| total_expenses |
++----------------+
+| 38950.00       |
++----------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4F
++----------------------------+
+| total_current_distributors |
++----------------------------+
+| 4                          |
++----------------------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4G
++-----------+------------------+
+| city      | revenue_per_city |
++-----------+------------------+
+| Charlotte | 4100.00          |
+| Durham    | 0.00             |
+| Raleigh   | 0.00             |
++-----------+------------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4H
++--------------------------------------+----------------------------+-------------------------+
+| distributor_id                       | name                       | revenue_per_distributor |
++--------------------------------------+----------------------------+-------------------------+
+| 00000000-0000-0000-0000-000000000202 | Eastern Academic Wholesale | 4100.00                 |
+| 00000000-0000-0000-0000-000000000204 | Capitol City Books         | 0.00                    |
+| 00000000-0000-0000-0000-000000000201 | Triangle Books             | 0.00                    |
+| 00000000-0000-0000-0000-000000000203 | Wake County Public Library | 0.00                    |
++--------------------------------------+----------------------------+-------------------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4I
++---------+----------------------+
+| country | revenue_per_location |
++---------+----------------------+
+| USA     | 4100.00              |
++---------+----------------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4J
++----------+-----------+----------------+
+| pay_year | pay_month | total_payments |
++----------+-----------+----------------+
+| 2025     | 3         | 6500.00        |
+| 2025     | 12        | 1250.00        |
+| 2026     | 1         | 7630.00        |
+| 2026     | 2         | 15800.00       |
+| 2026     | 4         | 4400.00        |
++----------+-----------+----------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 4K
++--------------------+-----------------------------+
+| payment_type       | total_payments_by_work_type |
++--------------------+-----------------------------+
+| ARTICLE_AUTHORSHIP | 8580.00                     |
+| BOOK_AUTHORSHIP    | 5500.00                     |
+| EDITORIAL_WORK     | 21500.00                    |
++--------------------+-----------------------------+
+
+==================================
+=== Reports ======================
+==================================
+4A. Copies and total price per distributor
+4B. Copies and total price per week
+4C. Copies and total price per month
+4D. Total revenue of publishing house
+4E. Total expenses of publishing house
+4F. Total number of current distributors
+4G. Total revenue per city
+4H. Total revenue per distributor
+4I. Total revenue per country
+4J. Total payments to editors/authors per month
+4K. Total payments by work type
+0. Back
+Enter choice: 

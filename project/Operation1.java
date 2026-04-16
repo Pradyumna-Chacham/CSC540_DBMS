@@ -65,6 +65,14 @@ public class Operation1 {
                 case "7":
                     deleteContentFromTOC();
                     break;
+                case "1H":
+                case "8":
+                    addPerson();
+                    break;
+                case "1I":
+                case "9":
+                    removePerson();
+                    break;
                 case "0":
                     back = true;
                     break;
@@ -90,6 +98,8 @@ public class Operation1 {
         System.out.println("1E. View all publications for an editor");
         System.out.println("1F. Add article/chapter to TOC + assign author");
         System.out.println("1G. Delete article/chapter from TOC");
+        System.out.println("1H. Add new person");
+        System.out.println("1I. Remove person");
         System.out.println("0. Back");
     }
 
@@ -535,6 +545,96 @@ public class Operation1 {
         }
     }
 
+    /**
+     * Prompt the user for person details and insert a new person row.
+     */
+    private void addPerson() {
+        String sql = "INSERT INTO Person (id, name, role, affiliation) VALUES (?, ?, ?, ?)";
+
+        try {
+            String id = UUID.randomUUID().toString();
+
+            System.out.print("Name: ");
+            String name = scanner.nextLine().trim();
+
+            System.out.print("Role (AUTHOR / EDITOR / BOTH): ");
+            String role = scanner.nextLine().trim().toUpperCase();
+
+            System.out.print("Affiliation (STAFF / INVITED): ");
+            String affiliation = scanner.nextLine().trim().toUpperCase();
+
+            if (name.isEmpty()) {
+                System.out.println("[ERROR] Name is required.");
+                return;
+            }
+
+            if (!"AUTHOR".equals(role) && !"EDITOR".equals(role) && !"BOTH".equals(role)) {
+                System.out.println("[ERROR] Role must be one of: AUTHOR, EDITOR, BOTH");
+                return;
+            }
+
+            if (!"STAFF".equals(affiliation) && !"INVITED".equals(affiliation)) {
+                System.out.println("[ERROR] Affiliation must be one of: STAFF, INVITED");
+                return;
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, id);
+                ps.setString(2, name);
+                ps.setString(3, role);
+                ps.setString(4, affiliation);
+
+                ps.executeUpdate();
+                System.out.println("Person added successfully. ID: " + id);
+            }
+        } catch (SQLException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        }
+    }
+
+    /**
+     * Delete a person when there are no dependent rows in related tables.
+     */
+    private void removePerson() {
+        System.out.print("Person ID: ");
+        String personId = scanner.nextLine().trim();
+
+        if (!personExists(personId)) {
+            System.out.println("[ERROR] Person not found.");
+            return;
+        }
+
+        if (editAssignmentsExistForPerson(personId)) {
+            System.out.println("[ERROR] Cannot delete person because related Edits rows exist.");
+            return;
+        }
+
+        if (writesExistForPerson(personId)) {
+            System.out.println("[ERROR] Cannot delete person because related Writes rows exist.");
+            return;
+        }
+
+        if (paymentsExistForPerson(personId)) {
+            System.out.println("[ERROR] Cannot delete person because related UserPayments rows exist.");
+            return;
+        }
+
+        String sql = "DELETE FROM Person WHERE id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, personId);
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Person removed successfully.");
+            } else {
+                System.out.println("[ERROR] No person deleted.");
+            }
+        } catch (SQLException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        }
+    }
+
     private boolean publicationExists(String publicationId) {
         String sql = "SELECT 1 FROM Publications WHERE id = ?";
 
@@ -598,6 +698,45 @@ public class Operation1 {
             }
         } catch (SQLException e) {
             return false;
+        }
+    }
+
+    private boolean editAssignmentsExistForPerson(String personId) {
+        String sql = "SELECT 1 FROM Edits WHERE person_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, personId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            return true;
+        }
+    }
+
+    private boolean writesExistForPerson(String personId) {
+        String sql = "SELECT 1 FROM Writes WHERE person_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, personId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            return true;
+        }
+    }
+
+    private boolean paymentsExistForPerson(String personId) {
+        String sql = "SELECT 1 FROM UserPayments WHERE person_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, personId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            return true;
         }
     }
 
