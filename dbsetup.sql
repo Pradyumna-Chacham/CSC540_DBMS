@@ -22,6 +22,7 @@ CREATE TABLE Distributors (
     phone_number VARCHAR(20) NOT NULL UNIQUE,
     contact_name VARCHAR(255) NOT NULL,
     balance DECIMAL(12,2) NOT NULL,
+    balance_last_updated DATE NULL,
     city VARCHAR(100) NOT NULL,
     country VARCHAR(100) NOT NULL,
     CHECK (type IN ('BOOKSTORE', 'WHOLESALE', 'LIBRARY')),
@@ -69,10 +70,12 @@ CREATE TABLE UserPayments (
     issue_date DATE NOT NULL,
     claimed_date DATE NULL,
     person_id CHAR(36) NOT NULL,
+    edition_issue_id CHAR(36) NULL,
     CHECK (payment_type IN ('BOOK_AUTHORSHIP', 'ARTICLE_AUTHORSHIP', 'EDITORIAL_WORK')),
     CHECK (amount >= 0),
     CHECK (claimed_date IS NULL OR claimed_date >= issue_date),
-    FOREIGN KEY (person_id) REFERENCES Person(id)
+    FOREIGN KEY (person_id) REFERENCES Person(id),
+    FOREIGN KEY (edition_issue_id) REFERENCES EditionIssue(id)
 );
 
 CREATE TABLE Orders (
